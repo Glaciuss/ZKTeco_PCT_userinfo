@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserInfoMain));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -92,14 +93,6 @@
             this.txtPort = new System.Windows.Forms.TextBox();
             this.txtIP = new System.Windows.Forms.TextBox();
             this.btnConnect = new System.Windows.Forms.Button();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.btnRsConnect = new System.Windows.Forms.Button();
-            this.txtMachineSN = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.cbBaudRate = new System.Windows.Forms.ComboBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.cbPort = new System.Windows.Forms.ComboBox();
-            this.label16 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl2.SuspendLayout();
@@ -113,7 +106,6 @@
             this.groupBox3.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.tabPage6.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -647,7 +639,6 @@
             // tabControl3
             // 
             this.tabControl3.Controls.Add(this.tabPage3);
-            this.tabControl3.Controls.Add(this.tabPage6);
             this.tabControl3.Location = new System.Drawing.Point(6, 20);
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
@@ -716,106 +707,6 @@
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
-            // tabPage6
-            // 
-            this.tabPage6.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabPage6.Controls.Add(this.btnRsConnect);
-            this.tabPage6.Controls.Add(this.txtMachineSN);
-            this.tabPage6.Controls.Add(this.label13);
-            this.tabPage6.Controls.Add(this.cbBaudRate);
-            this.tabPage6.Controls.Add(this.label15);
-            this.tabPage6.Controls.Add(this.cbPort);
-            this.tabPage6.Controls.Add(this.label16);
-            this.tabPage6.ForeColor = System.Drawing.Color.DarkBlue;
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(441, 76);
-            this.tabPage6.TabIndex = 1;
-            this.tabPage6.Text = "RS232/485";
-            this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // btnRsConnect
-            // 
-            this.btnRsConnect.Location = new System.Drawing.Point(183, 43);
-            this.btnRsConnect.Name = "btnRsConnect";
-            this.btnRsConnect.Size = new System.Drawing.Size(75, 23);
-            this.btnRsConnect.TabIndex = 11;
-            this.btnRsConnect.Text = "Connect";
-            this.btnRsConnect.UseVisualStyleBackColor = true;
-            this.btnRsConnect.Click += new System.EventHandler(this.btnRsConnect_Click);
-            // 
-            // txtMachineSN
-            // 
-            this.txtMachineSN.Location = new System.Drawing.Point(356, 10);
-            this.txtMachineSN.Name = "txtMachineSN";
-            this.txtMachineSN.Size = new System.Drawing.Size(56, 20);
-            this.txtMachineSN.TabIndex = 10;
-            this.txtMachineSN.Text = "1";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(284, 14);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(63, 13);
-            this.label13.TabIndex = 9;
-            this.label13.Text = "MachineSN";
-            // 
-            // cbBaudRate
-            // 
-            this.cbBaudRate.FormattingEnabled = true;
-            this.cbBaudRate.Items.AddRange(new object[] {
-            "1200",
-            "2400",
-            "4800",
-            "9600",
-            "19200",
-            "38400",
-            "115200"});
-            this.cbBaudRate.Location = new System.Drawing.Point(206, 10);
-            this.cbBaudRate.Name = "cbBaudRate";
-            this.cbBaudRate.Size = new System.Drawing.Size(65, 21);
-            this.cbBaudRate.TabIndex = 6;
-            this.cbBaudRate.Text = "115200";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(140, 14);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(55, 13);
-            this.label15.TabIndex = 8;
-            this.label15.Text = "BaudRate";
-            // 
-            // cbPort
-            // 
-            this.cbPort.FormattingEnabled = true;
-            this.cbPort.Items.AddRange(new object[] {
-            "COM1",
-            "COM2",
-            "COM3",
-            "COM4",
-            "COM5",
-            "COM6",
-            "COM7",
-            "COM8",
-            "COM9"});
-            this.cbPort.Location = new System.Drawing.Point(71, 10);
-            this.cbPort.Name = "cbPort";
-            this.cbPort.Size = new System.Drawing.Size(56, 21);
-            this.cbPort.TabIndex = 5;
-            this.cbPort.Text = "COM1";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(29, 14);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(26, 13);
-            this.label16.TabIndex = 7;
-            this.label16.Text = "Port";
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.tabControl3);
@@ -836,6 +727,7 @@
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UserInfoMain";
             this.Text = "UserInfo";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -855,8 +747,6 @@
             this.tabControl3.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.tabPage6.ResumeLayout(false);
-            this.tabPage6.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -928,14 +818,6 @@
         private System.Windows.Forms.TextBox txtPort;
         private System.Windows.Forms.TextBox txtIP;
         private System.Windows.Forms.Button btnConnect;
-        private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.Button btnRsConnect;
-        private System.Windows.Forms.TextBox txtMachineSN;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ComboBox cbBaudRate;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.ComboBox cbPort;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.GroupBox groupBox2;
     }
 }

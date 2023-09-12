@@ -23,10 +23,6 @@ namespace UserInfo
         //Create Standalone SDK class dynamicly.
         public zkemkeeper.CZKEMClass axCZKEM1 = new zkemkeeper.CZKEMClass();
 
-        /*************************************************************************************************
-        * Before you refer to this demo,we strongly suggest you read the development manual deeply first.*
-        * This part is for demonstrating the communication with your device.                             *
-        * ************************************************************************************************/
         #region Communication
         private bool bIsConnected = false;//the boolean value identifies whether the device is connected
         private int iMachineNumber = 1;//the serial number of the device.After connecting the device ,this value will be changed.
@@ -72,56 +68,6 @@ namespace UserInfo
         }
 
         //If your device supports the SerialPort communications, you can refer to this.
-        private void btnRsConnect_Click(object sender, EventArgs e)
-        {
-            if (cbPort.Text.Trim() == "" || cbBaudRate.Text.Trim() == "" || txtMachineSN.Text.Trim() == "")
-            {
-                MessageBox.Show("Port,BaudRate and MachineSN cannot be null", "Error");
-                return;
-            }
-            int idwErrorCode = 0;
-            //accept serialport number from string like "COMi"
-            int iPort;
-            string sPort = cbPort.Text.Trim();
-            for (iPort = 1; iPort < 10; iPort++)
-            {
-                if (sPort.IndexOf(iPort.ToString()) > -1)
-                {
-                    break;
-                }
-            }
-
-            Cursor = Cursors.WaitCursor;
-            if (btnRsConnect.Text == "Disconnect")
-            {
-                axCZKEM1.Disconnect();
-                bIsConnected = false;
-                btnRsConnect.Text = "Connect";
-                btnRsConnect.Refresh();
-                lblState.Text = "Current State:Disconnected";
-                Cursor = Cursors.Default;
-                return;
-            }
-
-            iMachineNumber = Convert.ToInt32(txtMachineSN.Text.Trim());//when you are using the serial port communication,you can distinguish different devices by their serial port number.
-            bIsConnected = axCZKEM1.Connect_Com(iPort, iMachineNumber, Convert.ToInt32(cbBaudRate.Text.Trim()));
-
-            if (bIsConnected == true)
-            {
-                btnRsConnect.Text = "Disconnect";
-                btnRsConnect.Refresh();
-                lblState.Text = "Current State:Connected";
-
-                axCZKEM1.RegEvent(iMachineNumber, 65535);//Here you can register the realtime events that you want to be triggered(the parameters 65535 means registering all)
-            }
-            else
-            {
-                axCZKEM1.GetLastError(ref idwErrorCode);
-                MessageBox.Show("Unable to connect the device,ErrorCode=" + idwErrorCode.ToString(), "Error");
-            }
-
-            Cursor = Cursors.Default;
-        }
 
         #endregion
 
@@ -718,5 +664,10 @@ namespace UserInfo
             }
         }
         #endregion
+
+        private void btnRsConnect_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
