@@ -41,6 +41,12 @@ namespace UserInfo
             if (btnConnect.Text == "DisConnect")
             {
                 axCZKEM1.Disconnect();
+
+                //Real Time Event Param
+                this.axCZKEM1.OnFinger -= new zkemkeeper._IZKEMEvents_OnFingerEventHandler(axCZKEM1_OnFinger);
+                this.axCZKEM1.OnVerify -= new zkemkeeper._IZKEMEvents_OnVerifyEventHandler(axCZKEM1_OnVerify);
+                this.axCZKEM1.OnAttTransactionEx += new zkemkeeper._IZKEMEvents_OnAttTransactionExEventHandler(axCZKEM1_OnAttTransactionEx);
+
                 bIsConnected = false;
                 btnConnect.Text = "Connect";
                 lblState.Text = "Current State:DisConnected";
@@ -56,7 +62,14 @@ namespace UserInfo
                 btnConnect.Refresh();
                 lblState.Text = "Current State:Connected";
                 iMachineNumber = 1;//In fact,when you are using the tcp/ip communication,this parameter will be ignored,that is any integer will all right.Here we use 1.
-                axCZKEM1.RegEvent(iMachineNumber, 65535);//Here you can register the realtime events that you want to be triggered(the parameters 65535 means registering all)
+
+                //Real Time Event Param
+                if (axCZKEM1.RegEvent(iMachineNumber, 65535))//Here you can register the realtime events that you want to be triggered(the parameters 65535 means registering all)
+                {
+                    this.axCZKEM1.OnFinger += new zkemkeeper._IZKEMEvents_OnFingerEventHandler(axCZKEM1_OnFinger);
+                    this.axCZKEM1.OnVerify += new zkemkeeper._IZKEMEvents_OnVerifyEventHandler(axCZKEM1_OnVerify);
+                    this.axCZKEM1.OnAttTransactionEx += new zkemkeeper._IZKEMEvents_OnAttTransactionExEventHandler(axCZKEM1_OnAttTransactionEx);
+                }
             }
             else
             {
@@ -635,9 +648,40 @@ namespace UserInfo
         }
         #endregion
 
-        private void btnRsConnect_Click(object sender, EventArgs e)
-        {
+        #region RealTime Events
 
+        //When you place your finger on sensor of the device,this event will be triggered
+        private void axCZKEM1_OnFinger()
+        {
+            lbRTShow.Items.Add("RTEvent OnFinger Has been Triggered");
         }
+
+        //If you passes the verification,the returned value userid will be the user enrollnumber,or else the value will be -1;
+        private void axCZKEM1_OnVerify(int iUserID)
+        {
+            lbRTShow.Items.Add("RTEvent OnVerify Has been Triggered,Verifying...");
+            if (iUserID != -1)
+            {
+                lbRTShow.Items.Add("Verified OK,the UserID is " + iUserID.ToString());
+            }
+            else
+            {
+                lbRTShow.Items.Add("Verified Failed... ");
+            }
+        }
+
+        //If your fingerprint(or your card) passes the verification,this event will be triggered
+        private void axCZKEM1_OnAttTransactionEx(string sEnrollNumber, int iIsInValid, int iAttState, int iVerifyMethod, int iYear, int iMonth, int iDay, int iHour, int iMinute, int iSecond, int iWorkCode)
+        {
+            lbRTShow.Items.Add("RTEvent OnAttTrasactionEx Has been Triggered,Verified OK");
+            lbRTShow.Items.Add("...UserID:" + sEnrollNumber);
+            lbRTShow.Items.Add("...isInvalid:" + iIsInValid.ToString());
+            lbRTShow.Items.Add("...attState:" + iAttState.ToString());
+            lbRTShow.Items.Add("...VerifyMethod:" + iVerifyMethod.ToString());
+            lbRTShow.Items.Add("...Workcode:" + iWorkCode.ToString());//the difference between the event OnAttTransaction and OnAttTransactionEx
+            lbRTShow.Items.Add("...Time:" + iYear.ToString() + "-" + iMonth.ToString() + "-" + iDay.ToString() + " " + iHour.ToString() + ":" + iMinute.ToString() + ":" + iSecond.ToString());
+        }
+
+        #endregion
     }
 }

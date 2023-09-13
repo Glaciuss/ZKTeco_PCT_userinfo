@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tab1 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.lvDownload = new System.Windows.Forms.ListView();
             this.ch1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -93,7 +93,10 @@
             this.btnConnect = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tabControl2.SuspendLayout();
+            this.Tab3 = new System.Windows.Forms.TabPage();
+            this.lbRTShow = new System.Windows.Forms.ListBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tab1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -106,17 +109,20 @@
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.Tab3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl2
+            // tab1
             // 
-            this.tabControl2.Controls.Add(this.tabPage4);
-            this.tabControl2.Controls.Add(this.tabPage5);
-            this.tabControl2.Location = new System.Drawing.Point(475, 39);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(496, 418);
-            this.tabControl2.TabIndex = 89;
+            this.tab1.Controls.Add(this.tabPage4);
+            this.tab1.Controls.Add(this.tabPage5);
+            this.tab1.Controls.Add(this.Tab3);
+            this.tab1.Controls.Add(this.tabPage1);
+            this.tab1.Location = new System.Drawing.Point(475, 39);
+            this.tab1.Name = "tab1";
+            this.tab1.SelectedIndex = 0;
+            this.tab1.Size = new System.Drawing.Size(496, 418);
+            this.tab1.TabIndex = 89;
             // 
             // tabPage4
             // 
@@ -717,18 +723,47 @@
             this.pictureBox1.TabIndex = 75;
             this.pictureBox1.TabStop = false;
             // 
+            // Tab3
+            // 
+            this.Tab3.Controls.Add(this.lbRTShow);
+            this.Tab3.Location = new System.Drawing.Point(4, 22);
+            this.Tab3.Name = "Tab3";
+            this.Tab3.Padding = new System.Windows.Forms.Padding(3);
+            this.Tab3.Size = new System.Drawing.Size(488, 392);
+            this.Tab3.TabIndex = 2;
+            this.Tab3.Text = "RTEvents";
+            this.Tab3.UseVisualStyleBackColor = true;
+            // 
+            // lbRTShow
+            // 
+            this.lbRTShow.FormattingEnabled = true;
+            this.lbRTShow.Location = new System.Drawing.Point(6, 8);
+            this.lbRTShow.Name = "lbRTShow";
+            this.lbRTShow.Size = new System.Drawing.Size(445, 277);
+            this.lbRTShow.TabIndex = 5;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(488, 392);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Setting Time";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
             // UserInfoMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(979, 471);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.tabControl2);
+            this.Controls.Add(this.tab1);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.pictureBox1);
             this.Name = "UserInfoMain";
             this.Text = "UserInfo";
-            this.tabControl2.ResumeLayout(false);
+            this.tab1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
@@ -747,6 +782,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Tab3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -754,7 +790,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabControl tab1;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.ListView lvDownload;
         private System.Windows.Forms.ColumnHeader ch1;
@@ -817,6 +853,9 @@
         private System.Windows.Forms.TextBox txtIP;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TabPage Tab3;
+        private System.Windows.Forms.ListBox lbRTShow;
+        private System.Windows.Forms.TabPage tabPage1;
     }
 }
 
