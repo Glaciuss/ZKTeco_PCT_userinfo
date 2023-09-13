@@ -1,5 +1,5 @@
 ﻿/**********************************************************
- * Demo for Standalone SDK.Created by Darcy on Oct.15 2009*
+ * Demo for Standalone SDK.Created by Darcy on Sep 2023*
 ***********************************************************/
 using System;
 using System.Collections.Generic;
@@ -27,8 +27,7 @@ namespace UserInfo
         private bool bIsConnected = false;//the boolean value identifies whether the device is connected
         private int iMachineNumber = 1;//the serial number of the device.After connecting the device ,this value will be changed.
 
-        //If your device supports the TCP/IP communications, you can refer to this.
-        //when you are using the tcp/ip communication,you can distinguish different devices by their IP address.
+
         private void btnConnect_Click(object sender, EventArgs e)
         {
             if (txtIP.Text.Trim() == "" || txtPort.Text.Trim() == "")
@@ -67,20 +66,10 @@ namespace UserInfo
             Cursor = Cursors.Default;
         }
 
-        //If your device supports the SerialPort communications, you can refer to this.
-
         #endregion
 
-        /*************************************************************************************************
-        * Before you refer to this demo,we strongly suggest you read the development manual deeply first.*
-        * This part is for demonstrating operations with user(download/upload/delete/clear/modify).      *
-        * ************************************************************************************************/
         #region UserInfo
 
-        //Download user's 9.0 or 10.0 arithmetic fingerprint templates(in strings)
-        //Only TFT screen devices with firmware version Ver 6.60 version later support function "GetUserTmpExStr" and "GetUserTmpEx".
-        //'While you are using 9.0 fingerprint arithmetic and your device's firmware version is under ver6.60,you should use the functions "SSR_GetUserTmp" or 
-        //"SSR_GetUserTmpStr" instead of "GetUserTmpExStr" or "GetUserTmpEx" in order to download the fingerprint templates.
         private void btnDownloadTmp_Click(object sender, EventArgs e)
         {
             if (bIsConnected == false)
@@ -138,10 +127,6 @@ namespace UserInfo
             Cursor = Cursors.Default;
         }
 
-        //Upload the 9.0 or 10.0 fingerprint arithmetic templates to the device(in strings) in batches.
-        //Only TFT screen devices with firmware version Ver 6.60 version later support function "SetUserTmpExStr" and "SetUserTmpEx".
-        //While you are using 9.0 fingerprint arithmetic and your device's firmware version is under ver6.60,you should use the functions "SSR_SetUserTmp" or 
-        //"SSR_SetUserTmpStr" instead of "SetUserTmpExStr" or "SetUserTmpEx" in order to upload the fingerprint templates.
         private void btnBatchUpdate_Click(object sender, EventArgs e)
         {
             if (bIsConnected == false)
@@ -222,10 +207,7 @@ namespace UserInfo
             MessageBox.Show("Successfully upload fingerprint templates in batches , " + "total:" + lvDownload.Items.Count.ToString(), "Success");
         }
 
-        //Upload the 9.0 or 10.0 fingerprint arithmetic templates one by one(in strings)
-        //Only TFT screen devices with firmware version Ver 6.60 version later support function "SetUserTmpExStr" and "SetUserTmpEx".
-        //While you are using 9.0 fingerprint arithmetic and your device's firmware version is under ver6.60,you should use the functions "SSR_SetUserTmp" or 
-        //"SSR_SetUserTmpStr" instead of "SetUserTmpExStr" or "SetUserTmpEx" in order to upload the fingerprint templates.
+
         private void btnUploadTmp_Click(object sender, EventArgs e)
         {
             if (bIsConnected == false)
@@ -292,9 +274,6 @@ namespace UserInfo
             MessageBox.Show("Successfully Upload fingerprint templates, " + "total:" + lvDownload.Items.Count.ToString(), "Success");
         }
 
-        //Delete a certain user's fingerprint template of specified index
-        //You shuold input the the user id and the fingerprint index you will delete
-        //The difference between the two functions "SSR_DelUserTmpExt" and "SSR_DelUserTmp" is that the former supports 24 bits' user id.
         private void btnSSR_DelUserTmpExt_Click(object sender, EventArgs e)
         {
             if (bIsConnected == false)
@@ -353,8 +332,7 @@ namespace UserInfo
             Cursor = Cursors.Default;
         }
 
-        //Delete all the user information in the device,while the related fingerprint templates will be deleted either. 
-        //(While the parameter DataFlag  of the Function "ClearData" is 5 )
+
         private void btnClearDataUserInfo_Click(object sender, EventArgs e)
         {
             if (bIsConnected == false)
@@ -380,8 +358,6 @@ namespace UserInfo
             Cursor = Cursors.Default;
         }
 
-        //Delete a kind of data that some user has enrolled
-        //The range of the Backup Number is from 0 to 9 and the specific meaning of Backup number is described in the development manual,pls refer to it.
         private void btnDeleteEnrollData_Click(object sender, EventArgs e)
         {
             if (bIsConnected == false)
@@ -492,8 +468,6 @@ namespace UserInfo
             Cursor = Cursors.Default;
         }
 
-        //Upload users' face template(in strings)(For TFT screen IFace series devices only)
-        //Uploading the face templates in batches is not supported temporarily.
         private void btnUploadFace_Click(object sender, EventArgs e)
         {
             if (bIsConnected == false)
@@ -588,8 +562,6 @@ namespace UserInfo
 
         }
 
-        //Download specified user's face template (in bytes array)    
-        //You can refer to the part of "Udisk data Management" to learn how to manage the user's binary template(Get or Set)
         private void btnGetUserFace_Click(object sender, EventArgs e)
         {
             if (bIsConnected == false)
@@ -628,8 +600,6 @@ namespace UserInfo
             Cursor = Cursors.Default;
         }
 
-        //add by Darcy on Nov.23 2009
-        //Add the existed userid to DropDownLists.
         bool bAddControl = true;
         private void UserIDTimer_Tick(object sender, EventArgs e)
         {
