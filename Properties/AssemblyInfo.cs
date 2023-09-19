@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过下列属性集
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("WindowsApplication1")]
+[assembly: AssemblyTitle("userinfo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("zksoftware")]
-[assembly: AssemblyProduct("WindowsApplication1")]
-[assembly: AssemblyCopyright("版权所有 (C) zksoftware 2009")]
+[assembly: AssemblyCompany("pct software")]
+[assembly: AssemblyProduct("demo_userinfo")]
+[assembly: AssemblyCopyright("sbuys 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
