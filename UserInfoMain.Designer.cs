@@ -90,6 +90,7 @@
             this.groupBox4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.groupBox11.SuspendLayout();
+            this.Tab3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -399,6 +400,7 @@
             // 
             // Tab3
             // 
+            this.Tab3.Controls.Add(this.lbRTShow);
             this.Tab3.Location = new System.Drawing.Point(4, 22);
             this.Tab3.Name = "Tab3";
             this.Tab3.Padding = new System.Windows.Forms.Padding(3);
@@ -410,7 +412,7 @@
             // lbRTShow
             // 
             this.lbRTShow.FormattingEnabled = true;
-            this.lbRTShow.Location = new System.Drawing.Point(6, 3);
+            this.lbRTShow.Location = new System.Drawing.Point(6, 6);
             this.lbRTShow.Name = "lbRTShow";
             this.lbRTShow.Size = new System.Drawing.Size(445, 277);
             this.lbRTShow.TabIndex = 5;
@@ -438,7 +440,6 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.lbRTShow);
             this.groupBox7.Controls.Add(this.label14);
             this.groupBox7.Controls.Add(this.label25);
             this.groupBox7.Controls.Add(this.cbUserIDDE);
@@ -758,6 +759,7 @@
             this.tabPage5.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
+            this.Tab3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();

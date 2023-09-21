@@ -666,6 +666,7 @@ namespace UserInfo
         }
         #endregion
 
+
         #region RealTime Events
 
         //When you place your finger on sensor of the device,this event will be triggered
@@ -674,6 +675,7 @@ namespace UserInfo
             lbRTShow.Items.Add("RTEvent OnFinger Has been Triggered");
         }
 
+        //After you have placed your finger on the sensor(or swipe your card to the device),this event will be triggered.
         //If you passes the verification,the returned value userid will be the user enrollnumber,or else the value will be -1;
         private void axCZKEM1_OnVerify(int iUserID)
         {
