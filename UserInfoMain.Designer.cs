@@ -13,7 +13,7 @@
             base.Dispose(disposing);
         }
 
-        #region Windows 窗体设计器生成的代码
+        #region Windows 
 
         private void InitializeComponent()
         {
@@ -53,6 +53,8 @@
             this.btnDelUserFace = new System.Windows.Forms.Button();
             this.btnDownLoadFace = new System.Windows.Forms.Button();
             this.btnUploadFace = new System.Windows.Forms.Button();
+            this.Tab3 = new System.Windows.Forms.TabPage();
+            this.lbRTShow = new System.Windows.Forms.ListBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -83,14 +85,13 @@
             this.btnConnect = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.Tab3 = new System.Windows.Forms.TabPage();
-            this.lbRTShow = new System.Windows.Forms.ListBox();
             this.rtTimer = new System.Windows.Forms.Timer(this.components);
             this.tab1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.groupBox11.SuspendLayout();
+            this.Tab3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -99,7 +100,6 @@
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.Tab3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab1
@@ -398,6 +398,25 @@
             this.btnUploadFace.Text = "UploadFaceTemplates";
             this.btnUploadFace.UseVisualStyleBackColor = true;
             this.btnUploadFace.Click += new System.EventHandler(this.btnUploadFace_Click);
+            // 
+            // Tab3
+            // 
+            this.Tab3.Controls.Add(this.lbRTShow);
+            this.Tab3.Location = new System.Drawing.Point(4, 22);
+            this.Tab3.Name = "Tab3";
+            this.Tab3.Padding = new System.Windows.Forms.Padding(3);
+            this.Tab3.Size = new System.Drawing.Size(488, 392);
+            this.Tab3.TabIndex = 2;
+            this.Tab3.Text = "RTEvents";
+            this.Tab3.UseVisualStyleBackColor = true;
+            // 
+            // lbRTShow
+            // 
+            this.lbRTShow.FormattingEnabled = true;
+            this.lbRTShow.Location = new System.Drawing.Point(6, 6);
+            this.lbRTShow.Name = "lbRTShow";
+            this.lbRTShow.Size = new System.Drawing.Size(445, 277);
+            this.lbRTShow.TabIndex = 5;
             // 
             // tabPage1
             // 
@@ -723,27 +742,9 @@
             this.pictureBox1.TabIndex = 75;
             this.pictureBox1.TabStop = false;
             // 
-            // Tab3
-            // 
-            this.Tab3.Controls.Add(this.lbRTShow);
-            this.Tab3.Location = new System.Drawing.Point(4, 22);
-            this.Tab3.Name = "Tab3";
-            this.Tab3.Padding = new System.Windows.Forms.Padding(3);
-            this.Tab3.Size = new System.Drawing.Size(488, 392);
-            this.Tab3.TabIndex = 2;
-            this.Tab3.Text = "RTEvents";
-            this.Tab3.UseVisualStyleBackColor = true;
-            // 
-            // lbRTShow
-            // 
-            this.lbRTShow.FormattingEnabled = true;
-            this.lbRTShow.Location = new System.Drawing.Point(6, 6);
-            this.lbRTShow.Name = "lbRTShow";
-            this.lbRTShow.Size = new System.Drawing.Size(445, 277);
-            this.lbRTShow.TabIndex = 5;
-            // 
             // rtTimer
             // 
+            this.rtTimer.Enabled = true;
             this.rtTimer.Tick += new System.EventHandler(this.rtTimer_Tick);
             // 
             // UserInfoMain
@@ -764,6 +765,7 @@
             this.tabPage5.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
+            this.Tab3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
@@ -776,7 +778,6 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.Tab3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
