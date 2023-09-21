@@ -695,8 +695,6 @@ namespace UserInfo
         //If your fingerprint(or your card) passes the verification,this event will be triggered
         private void axCZKEM1_OnAttTransactionEx(string sEnrollNumber, int iIsInValid, int iAttState, int iVerifyMethod, int iYear, int iMonth, int iDay, int iHour, int iMinute, int iSecond, int iWorkCode)
         {
-            lbRTShow.Items.Add("axCZKEM1_OnAttTransactionEx...actived");
-
             lbRTShow.Items.Add("RTEvent OnAttTrasactionEx Has been Triggered,Verified OK");
             lbRTShow.Items.Add("...UserID:" + sEnrollNumber);
             lbRTShow.Items.Add("...isInvalid:" + iIsInValid.ToString());

@@ -83,8 +83,8 @@
             this.btnConnect = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lbRTShow = new System.Windows.Forms.ListBox();
             this.Tab3 = new System.Windows.Forms.TabPage();
+            this.lbRTShow = new System.Windows.Forms.ListBox();
             this.tab1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -722,14 +722,6 @@
             this.pictureBox1.TabIndex = 75;
             this.pictureBox1.TabStop = false;
             // 
-            // lbRTShow
-            // 
-            this.lbRTShow.FormattingEnabled = true;
-            this.lbRTShow.Location = new System.Drawing.Point(6, 7);
-            this.lbRTShow.Name = "lbRTShow";
-            this.lbRTShow.Size = new System.Drawing.Size(445, 277);
-            this.lbRTShow.TabIndex = 5;
-            // 
             // Tab3
             // 
             this.Tab3.Controls.Add(this.lbRTShow);
@@ -740,6 +732,14 @@
             this.Tab3.TabIndex = 2;
             this.Tab3.Text = "RTEvents";
             this.Tab3.UseVisualStyleBackColor = true;
+            // 
+            // lbRTShow
+            // 
+            this.lbRTShow.FormattingEnabled = true;
+            this.lbRTShow.Location = new System.Drawing.Point(6, 6);
+            this.lbRTShow.Name = "lbRTShow";
+            this.lbRTShow.Size = new System.Drawing.Size(445, 277);
+            this.lbRTShow.TabIndex = 5;
             // 
             // UserInfoMain
             // 
