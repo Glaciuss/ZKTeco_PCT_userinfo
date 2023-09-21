@@ -10,3 +10,4 @@ E:\testC\ZKTeco\UserInfo\obj\x86\Debug\UserInfo.csproj.GenerateResource.cache
 E:\testC\ZKTeco\UserInfo\obj\x86\Debug\UserInfo.csproj.CoreCompileInputs.cache
 E:\testC\ZKTeco\UserInfo\obj\x86\Debug\UserInfo.exe
 E:\testC\ZKTeco\UserInfo\obj\x86\Debug\UserInfo.pdb
+E:\testC\ZKTeco\UserInfo\obj\x86\Debug\UserInfo.csproj.AssemblyReference.cache
