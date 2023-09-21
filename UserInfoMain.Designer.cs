@@ -85,6 +85,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Tab3 = new System.Windows.Forms.TabPage();
             this.lbRTShow = new System.Windows.Forms.ListBox();
+            this.rtTimer = new System.Windows.Forms.Timer(this.components);
             this.tab1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -741,6 +742,10 @@
             this.lbRTShow.Size = new System.Drawing.Size(445, 277);
             this.lbRTShow.TabIndex = 5;
             // 
+            // rtTimer
+            // 
+            this.rtTimer.Tick += new System.EventHandler(this.rtTimer_Tick);
+            // 
             // UserInfoMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -845,6 +850,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage Tab3;
         private System.Windows.Forms.ListBox lbRTShow;
+        private System.Windows.Forms.Timer rtTimer;
     }
 }
 
