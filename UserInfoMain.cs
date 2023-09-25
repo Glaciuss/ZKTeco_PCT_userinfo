@@ -175,7 +175,7 @@ namespace UserInfo
             int iPrivilege = 0;
             bool bEnabled = false;
             int idwFingerIndex = 6;
-            string sTmpData = "SampleTmpData";
+            string sTmpData = "Si1TUzlxAAADbm4ECAUHCc7QAAAbb2kBAAAAg5MWWG5LAAMPMACnAPZhaABkAH0PhwBvbmkOYwB1AMMPXG6YAHYOSgBbAPVgmQCuAJQPrgDlbhEPkwDVAF0Ps273AKsPagA4ACNgYAAJAUQPsQAKbzEPMwATAQ4Pu24UAacPbwDvATxhJwAmAcQPuwAvb0APnQA+AekPNG5XAcsPjQCSAURjq4jan7b/Zl14mpryUXmyfLsWrhsnZRLuSYnDocH/glL";
             //int iTmpLength = 0;
             int iFlag = 1;
 

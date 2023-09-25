@@ -756,6 +756,7 @@
             // 
             // rtTimer
             // 
+            this.rtTimer.Enabled = true;
             this.rtTimer.Tick += new System.EventHandler(this.rtTimer_Tick);
             // 
             // UserInfoMain
