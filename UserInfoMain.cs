@@ -175,7 +175,7 @@ namespace UserInfo
             int iPrivilege = 0;
             bool bEnabled = false;
             int idwFingerIndex = 6;
-            string sTmpData = "Si1TUzlxAAADbm4ECAUHCc7QAAAbb2kBAAAAg5MWWG5LAAMPMACnAPZhaABkAH0PhwBvbmkOYwB1AMMPXG6YAHYOSgBbAPVgmQCuAJQPrgDlbhEPkwDVAF0Ps273AKsPagA4ACNgYAAJAUQPsQAKbzEPMwATAQ4Pu24UAacPbwDvATxhJwAmAcQPuwAvb0APnQA+AekPNG5XAcsPjQCSAURjq4jan7b/Zl14mpryUXmyfLsWrhsnZRLuSYnDocH/glL";
+            string sTmpData = "";
             //int iTmpLength = 0;
             int iFlag = 1;
 
@@ -840,12 +840,26 @@ namespace UserInfo
         //When you are using these two functions, it will request data from the device forwardly.
         private void rtTimer_Tick(object sender, EventArgs e)
         {
-            if (axCZKEM1.ReadRTLog(iMachineNumber))
+            //if (axCZKEM1.ReadRTLog(iMachineNumber))
+            //{
+            //    while (axCZKEM1.GetRTLog(iMachineNumber))
+            //    {
+            //        ;
+            //    }
+            //}
+
+            if (bIsConnected == false)
+            {
+                lbRTShow.Items.Clear();
+                return;
+            }
+            else
             {
                 while (axCZKEM1.GetRTLog(iMachineNumber))
                 {
                     ;
                 }
+                return;
             }
         }
 
