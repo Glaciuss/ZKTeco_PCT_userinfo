@@ -30,6 +30,7 @@
             this.ch7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.addDemo = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -178,7 +179,7 @@
             // 
             // ch7
             // 
-            this.ch7.Text = "Ennabled";
+            this.ch7.Text = "Enabled";
             this.ch7.Width = 68;
             // 
             // ch8
@@ -188,6 +189,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.addDemo);
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label3);
@@ -200,6 +202,16 @@
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Fingerprint Templates of 9.0&&10.0 Arithmetic";
+            // 
+            // addDemo
+            // 
+            this.addDemo.Location = new System.Drawing.Point(367, 19);
+            this.addDemo.Name = "addDemo";
+            this.addDemo.Size = new System.Drawing.Size(94, 23);
+            this.addDemo.TabIndex = 77;
+            this.addDemo.Text = "DemoAdd";
+            this.addDemo.UseVisualStyleBackColor = true;
+            this.addDemo.Click += new System.EventHandler(this.addDemo_Click);
             // 
             // label10
             // 
@@ -744,7 +756,6 @@
             // 
             // rtTimer
             // 
-            this.rtTimer.Enabled = true;
             this.rtTimer.Tick += new System.EventHandler(this.rtTimer_Tick);
             // 
             // UserInfoMain
@@ -852,6 +863,7 @@
         private System.Windows.Forms.TabPage Tab3;
         private System.Windows.Forms.ListBox lbRTShow;
         private System.Windows.Forms.Timer rtTimer;
+        private System.Windows.Forms.Button addDemo;
     }
 }
 

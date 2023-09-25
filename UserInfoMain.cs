@@ -160,6 +160,44 @@ namespace UserInfo
             Cursor = Cursors.Default;
         }
 
+        private void addDemo_Click(object sender, EventArgs e)
+        {
+            if (bIsConnected == false)
+            {
+                MessageBox.Show("Please connect the device first!", "Error");
+                return;
+            }
+
+            //set demo value
+            string sdwEnrollNumber = "3";
+            string sName = "Test01";
+            string sPassword = "1234";
+            int iPrivilege = 0;
+            bool bEnabled = false;
+            int idwFingerIndex = 6;
+            string sTmpData = "SampleTmpData";
+            //int iTmpLength = 0;
+            int iFlag = 0;
+
+            ListViewItem list = new ListViewItem();
+            list.Text = sdwEnrollNumber;
+            list.SubItems.Add(sName);
+            list.SubItems.Add(idwFingerIndex.ToString());
+            list.SubItems.Add(sTmpData);
+            list.SubItems.Add(iPrivilege.ToString());
+            list.SubItems.Add(sPassword);
+            if (bEnabled == true)
+            {
+                list.SubItems.Add("true");
+            }
+            else
+            {
+                list.SubItems.Add("false");
+            }
+            list.SubItems.Add(iFlag.ToString());
+            lvDownload.Items.Add(list);
+        }
+
         private void btnBatchUpdate_Click(object sender, EventArgs e)
         {
             if (bIsConnected == false)
@@ -812,5 +850,7 @@ namespace UserInfo
         }
 
         #endregion
+
+        
     }
 }
