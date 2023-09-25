@@ -177,7 +177,7 @@ namespace UserInfo
             int idwFingerIndex = 6;
             string sTmpData = "SampleTmpData";
             //int iTmpLength = 0;
-            int iFlag = 0;
+            int iFlag = 1;
 
             ListViewItem list = new ListViewItem();
             list.Text = sdwEnrollNumber;
