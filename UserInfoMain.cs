@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using DatabaseClassLibrary;
 
 using System.Threading;
 
@@ -162,6 +163,8 @@ namespace UserInfo
 
         private void addDemo_Click(object sender, EventArgs e)
         {
+            LoadUserList();
+
             if (bIsConnected == false)
             {
                 MessageBox.Show("Please connect the device first!", "Error");
@@ -196,6 +199,23 @@ namespace UserInfo
             }
             list.SubItems.Add(iFlag.ToString());
             lvDownload.Items.Add(list);
+        }
+
+        private void LoadUserList()
+        {
+            try
+            {
+                Database.Connect();
+                MessageBox.Show("เชื่อมต่อฐานข้อมูลได้", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch
+            {
+                Cursor = Cursors.Default;
+                MessageBox.Show("ไม่สามารถเชื่อมต่อฐานข้อมูลได้", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         private void btnBatchUpdate_Click(object sender, EventArgs e)
@@ -840,26 +860,13 @@ namespace UserInfo
         //When you are using these two functions, it will request data from the device forwardly.
         private void rtTimer_Tick(object sender, EventArgs e)
         {
-            //if (axCZKEM1.ReadRTLog(iMachineNumber))
-            //{
-            //    while (axCZKEM1.GetRTLog(iMachineNumber))
-            //    {
-            //        ;
-            //    }
-            //}
-
-            if (bIsConnected == false)
-            {
-                lbRTShow.Items.Clear();
-                return;
-            }
-            else
+            
+            if (axCZKEM1.ReadRTLog(iMachineNumber))
             {
                 while (axCZKEM1.GetRTLog(iMachineNumber))
                 {
                     ;
                 }
-                return;
             }
         }
 

@@ -757,6 +757,7 @@
             // rtTimer
             // 
             this.rtTimer.Enabled = true;
+            this.rtTimer.Interval = 5000;
             this.rtTimer.Tick += new System.EventHandler(this.rtTimer_Tick);
             // 
             // UserInfoMain
