@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using DatabaseClassLibrary;
+using System.Data.SqlClient;
 
 using System.Threading;
 
@@ -165,47 +166,69 @@ namespace UserInfo
         {
             LoadUserList();
 
-            if (bIsConnected == false)
-            {
-                MessageBox.Show("Please connect the device first!", "Error");
-                return;
-            }
-
-            //set demo value
-            string sdwEnrollNumber = "3";
-            string sName = "Test01";
-            string sPassword = "1234";
-            int iPrivilege = 0;
-            bool bEnabled = false;
-            int idwFingerIndex = 6;
-            string sTmpData = "";
-            //int iTmpLength = 0;
-            int iFlag = 1;
-
-            ListViewItem list = new ListViewItem();
-            list.Text = sdwEnrollNumber;
-            list.SubItems.Add(sName);
-            list.SubItems.Add(idwFingerIndex.ToString());
-            list.SubItems.Add(sTmpData);
-            list.SubItems.Add(iPrivilege.ToString());
-            list.SubItems.Add(sPassword);
-            if (bEnabled == true)
-            {
-                list.SubItems.Add("true");
-            }
-            else
-            {
-                list.SubItems.Add("false");
-            }
-            list.SubItems.Add(iFlag.ToString());
-            lvDownload.Items.Add(list);
+            
         }
 
         private void LoadUserList()
         {
             try
             {
-                Database.Connect();
+                string connetionString;
+                SqlConnection cnn;
+                SqlCommand cmd;
+                connetionString = @"Data Source=161.82.175.125;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
+                cnn = new SqlConnection(connetionString);
+                cnn.Open();
+                MessageBox.Show("Connection Open  !");
+                cnn.Close();
+                cmd = new SqlCommand("select * from Employee", cnn);
+
+                string selectquery = "select * from Employee";
+                SqlDataAdapter adpt = new SqlDataAdapter(selectquery, cnn);
+                DataTable table = new DataTable();
+                adpt.Fill(table);
+
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    DataRow row = table.Rows[i];
+                    Console.WriteLine(i+1 + " = number of employee");
+                    Console.WriteLine(row["EmployeeName"]);
+
+                    if (bIsConnected == false)
+                    {
+                        MessageBox.Show("Please connect the device first!", "Error");
+                        return;
+                    }
+
+                    //set demo value
+                    string sdwEnrollNumber = (lvDownload.Items.Count+1).ToString();
+                    string sName = row["EmployeeName"].ToString();
+                    string sPassword = "1234";
+                    int iPrivilege = 0;
+                    bool bEnabled = false;
+                    int idwFingerIndex = 6;
+                    string sTmpData = "";
+                    //int iTmpLength = 0;
+                    int iFlag = 1;
+
+                    ListViewItem list = new ListViewItem();
+                    list.Text = sdwEnrollNumber;
+                    list.SubItems.Add(sName);
+                    list.SubItems.Add(idwFingerIndex.ToString());
+                    list.SubItems.Add(sTmpData);
+                    list.SubItems.Add(iPrivilege.ToString());
+                    list.SubItems.Add(sPassword);
+                    if (bEnabled == true)
+                    {
+                        list.SubItems.Add("true");
+                    }
+                    else
+                    {
+                        list.SubItems.Add("false");
+                    }
+                    list.SubItems.Add(iFlag.ToString());
+                    lvDownload.Items.Add(list);
+                }
             }
             catch
             {

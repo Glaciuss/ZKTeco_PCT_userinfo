@@ -1,6 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Globalization;
+using System.Diagnostics;
+using System.Data;
+using DatabaseClassLibrary;
 
 namespace UserInfo
 {

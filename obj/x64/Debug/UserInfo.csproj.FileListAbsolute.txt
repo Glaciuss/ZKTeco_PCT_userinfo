@@ -1,6 +1,5 @@
 E:\testC\ZKTeco\UserInfo\bin\x64\Debug\UserInfo.exe
 E:\testC\ZKTeco\UserInfo\bin\x64\Debug\Interop.zkemkeeper.dll
-E:\testC\ZKTeco\UserInfo\obj\x64\Debug\UserInfo.csproj.AssemblyReference.cache
 E:\testC\ZKTeco\UserInfo\obj\x64\Debug\Interop.zkemkeeper.dll
 E:\testC\ZKTeco\UserInfo\obj\x64\Debug\UserInfo.csproj.ResolveComReference.cache
 E:\testC\ZKTeco\UserInfo\obj\x64\Debug\UserInfo.g.resources
@@ -12,5 +11,6 @@ E:\testC\ZKTeco\UserInfo\obj\x64\Debug\UserInfo.exe
 E:\testC\ZKTeco\UserInfo\obj\x64\Debug\UserInfo.pdb
 E:\testC\ZKTeco\UserInfo\bin\x64\Debug\UserInfo.pdb
 E:\testC\ZKTeco\UserInfo\bin\x64\Debug\DatabaseClassLibrary.dll
-E:\testC\ZKTeco\UserInfo\bin\x64\Debug\DatabaseClassLibrary.pdb
 E:\testC\ZKTeco\UserInfo\obj\x64\Debug\UserInfo.csproj.CopyComplete
+E:\testC\ZKTeco\UserInfo\bin\x64\Debug\UserInfo.exe.config
+E:\testC\ZKTeco\UserInfo\obj\x64\Debug\UserInfo.csproj.AssemblyReference.cache
