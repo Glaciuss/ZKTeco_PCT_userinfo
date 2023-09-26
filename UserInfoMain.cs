@@ -206,8 +206,6 @@ namespace UserInfo
             try
             {
                 Database.Connect();
-                MessageBox.Show("เชื่อมต่อฐานข้อมูลได้", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch
             {

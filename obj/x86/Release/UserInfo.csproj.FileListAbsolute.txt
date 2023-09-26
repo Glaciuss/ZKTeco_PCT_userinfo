@@ -11,6 +11,6 @@ E:\testC\ZKTeco\UserInfo\obj\x86\Release\UserInfo.csproj.CoreCompileInputs.cache
 E:\testC\ZKTeco\UserInfo\obj\x86\Release\UserInfo.exe
 E:\testC\ZKTeco\UserInfo\obj\x86\Release\UserInfo.pdb
 E:\testC\ZKTeco\UserInfo\bin\x86\Release\DatabaseClassLibrary.dll
-E:\testC\ZKTeco\UserInfo\bin\x86\Release\DatabaseClassLibrary.pdb
 E:\testC\ZKTeco\UserInfo\obj\x86\Release\UserInfo.csproj.AssemblyReference.cache
 E:\testC\ZKTeco\UserInfo\obj\x86\Release\UserInfo.csproj.CopyComplete
+E:\testC\ZKTeco\UserInfo\bin\x86\Release\UserInfo.exe.config
