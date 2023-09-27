@@ -10,6 +10,7 @@ using System.Text;
 using System.Windows.Forms;
 using DatabaseClassLibrary;
 using System.Data.SqlClient;
+using System.Linq;
 
 using System.Threading;
 
@@ -176,38 +177,94 @@ namespace UserInfo
                 string connetionString;
                 SqlConnection cnn;
                 SqlCommand cmd;
+                SqlCommand cmdFG;
                 connetionString = @"Data Source=161.82.175.125;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
                 cnn = new SqlConnection(connetionString);
-                cnn.Open();
-                MessageBox.Show("Connection Open  !");
-                cnn.Close();
+
                 cmd = new SqlCommand("select * from Employee", cnn);
+                cmdFG = new SqlCommand("select * from EmpFinger", cnn);
 
                 string selectquery = "select * from Employee";
+                string selectqueryFG = "select * from EmpFinger";
+
                 SqlDataAdapter adpt = new SqlDataAdapter(selectquery, cnn);
+                SqlDataAdapter adptFG = new SqlDataAdapter(selectqueryFG, cnn);
                 DataTable table = new DataTable();
+                DataTable tableFG = new DataTable();
                 adpt.Fill(table);
+                adptFG.Fill(tableFG);
 
-                for (int i = 0; i < table.Rows.Count; i++)
+                var empJoin = from TBEmp in table.AsEnumerable() join TBFinger in tableFG.AsEnumerable()
+                              on TBEmp.Field<string>("EmployeeID") equals TBFinger.Field<string>("EmployeeID")
+                              into tempJoin from leftJoin in tempJoin.DefaultIfEmpty()
+                              select new
+                              {
+                                  EmpID = TBEmp.Field<string>("EmployeeID"),
+                                  EmpName = TBEmp.Field<string>("EmployeeName"),
+                                  FGCode = leftJoin == null ? "empty" : leftJoin.Field<string>("FingerCode"),
+                                  Hand = leftJoin == null ? "empty" : leftJoin.Field<string>("Hand"),
+                                  FingerIndex = leftJoin == null ? "empty" : leftJoin.Field<string>("Finger")
+                              };
+
+                int numRows = 0;
+
+                foreach (var item in empJoin)
                 {
-                    DataRow row = table.Rows[i];
-                    Console.WriteLine(i+1 + " = number of employee");
-                    Console.WriteLine(row["EmployeeName"]);
-
-                    if (bIsConnected == false)
-                    {
-                        MessageBox.Show("Please connect the device first!", "Error");
-                        return;
-                    }
+                    Console.WriteLine(String.Format("EmpID = {0}, EmpName = {1}, FGCode = {2}, Finger = {3}", 
+                        item.EmpID, item.EmpName, item.FGCode, item.FingerIndex));
+                    numRows++;
 
                     //set demo value
-                    string sdwEnrollNumber = (lvDownload.Items.Count+1).ToString();
-                    string sName = row["EmployeeName"].ToString();
+                    string sdwEnrollNumber = (lvDownload.Items.Count + 1).ToString();
+                    string sName = item.EmpName;
                     string sPassword = "1234";
                     int iPrivilege = 0;
                     bool bEnabled = false;
-                    int idwFingerIndex = 6;
-                    string sTmpData = "";
+
+                    //sync 0-9 finger
+                    string idwFingerIndex = "";
+                    if (item.Hand == "L" & item.FingerIndex == "Little")
+                    {
+                        idwFingerIndex = "0";
+                    }
+                    else if (item.Hand == "L" & item.FingerIndex == "Ring")
+                    {
+                        idwFingerIndex = "1";
+                    }
+                    else if (item.Hand == "L" & item.FingerIndex == "Middle")
+                    {
+                        idwFingerIndex = "2";
+                    }
+                    else if (item.Hand == "L" & item.FingerIndex == "Index")
+                    {
+                        idwFingerIndex = "3";
+                    }
+                    else if (item.Hand == "L" & item.FingerIndex == "Thumb")
+                    {
+                        idwFingerIndex = "4";
+                    }
+                    else if (item.Hand == "R" & item.FingerIndex == "Thumb")
+                    {
+                        idwFingerIndex = "5";
+                    }
+                    else if (item.Hand == "R" & item.FingerIndex == "Index")
+                    {
+                        idwFingerIndex = "6";
+                    }
+                    else if (item.Hand == "R" & item.FingerIndex == "Middle")
+                    {
+                        idwFingerIndex = "7";
+                    }
+                    else if (item.Hand == "R" & item.FingerIndex == "Ring")
+                    {
+                        idwFingerIndex = "8";
+                    }
+                    else if (item.Hand == "R" & item.FingerIndex == "Little")
+                    {
+                        idwFingerIndex = "9";
+                    }
+
+                    string sTmpData = item.FGCode;
                     //int iTmpLength = 0;
                     int iFlag = 1;
 
@@ -229,11 +286,12 @@ namespace UserInfo
                     list.SubItems.Add(iFlag.ToString());
                     lvDownload.Items.Add(list);
                 }
+                Console.WriteLine("Numrows = " + numRows);
             }
-            catch
+            catch (SystemException ex)
             {
                 Cursor = Cursors.Default;
-                MessageBox.Show("ไม่สามารถเชื่อมต่อฐานข้อมูลได้", "Error",
+                MessageBox.Show(ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
