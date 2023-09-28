@@ -166,8 +166,19 @@ namespace UserInfo
         private void addDemo_Click(object sender, EventArgs e)
         {
             LoadUserList();
+        }
 
-            
+        private void uploadSQL_Click(object sender, EventArgs e)
+        {
+            if (lvDownload.Items.Count > 0) 
+            {
+                if (lvDownload.Items[0].SubItems[3].Text == "empty")
+                {
+                    Console.WriteLine("one of empty");
+                }
+                else
+                    Console.WriteLine("Can save!");
+            }
         }
 
         private void LoadUserList()
@@ -178,13 +189,13 @@ namespace UserInfo
                 SqlConnection cnn;
                 SqlCommand cmd;
                 SqlCommand cmdFG;
-                connetionString = @"Data Source=161.82.175.125;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
+                connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
                 cnn = new SqlConnection(connetionString);
 
                 cmd = new SqlCommand("select * from Employee", cnn);
                 cmdFG = new SqlCommand("select * from EmpFinger", cnn);
 
-                string selectquery = "select * from Employee";
+                string selectquery = "select * from Employee where EmployeeID = 66010007070001";
                 string selectqueryFG = "select * from EmpFinger";
 
                 SqlDataAdapter adpt = new SqlDataAdapter(selectquery, cnn);
@@ -194,7 +205,7 @@ namespace UserInfo
                 adpt.Fill(table);
                 adptFG.Fill(tableFG);
 
-                var empJoin = from TBEmp in table.AsEnumerable() join TBFinger in tableFG.AsEnumerable()
+                var empJoin = (from TBEmp in table.AsEnumerable() join TBFinger in tableFG.AsEnumerable()
                               on TBEmp.Field<string>("EmployeeID") equals TBFinger.Field<string>("EmployeeID")
                               into tempJoin from leftJoin in tempJoin.DefaultIfEmpty()
                               select new
@@ -204,7 +215,7 @@ namespace UserInfo
                                   FGCode = leftJoin == null ? "empty" : leftJoin.Field<string>("FingerCode"),
                                   Hand = leftJoin == null ? "empty" : leftJoin.Field<string>("Hand"),
                                   FingerIndex = leftJoin == null ? "empty" : leftJoin.Field<string>("Finger")
-                              };
+                              });
 
                 int numRows = 0;
 
@@ -215,7 +226,8 @@ namespace UserInfo
                     numRows++;
 
                     //set demo value
-                    string sdwEnrollNumber = (lvDownload.Items.Count + 1).ToString();
+                    //string sdwEnrollNumber = (lvDownload.Items.Count + 1).ToString();
+                    string sdwEnrollNumber = item.EmpID;
                     string sName = item.EmpName;
                     string sPassword = "1234";
                     int iPrivilege = 0;
@@ -268,6 +280,7 @@ namespace UserInfo
                     //int iTmpLength = 0;
                     int iFlag = 1;
 
+                    //add to list table
                     ListViewItem list = new ListViewItem();
                     list.Text = sdwEnrollNumber;
                     list.SubItems.Add(sName);
@@ -284,7 +297,21 @@ namespace UserInfo
                         list.SubItems.Add("false");
                     }
                     list.SubItems.Add(iFlag.ToString());
-                    lvDownload.Items.Add(list);
+
+                    //check exist data
+                    if (lvDownload.Items.Count > numRows-1)
+                    {
+                        bool IDexists = table.AsEnumerable().Where(c => c.Field<string>("EmployeeID").Equals(list.SubItems[0].Text)).Count() > 0;
+                        if (IDexists == true)
+                        {
+                            MessageBox.Show("Already have an EmployeeID " + lvDownload.Items[0].Text, "Error");
+                            return;
+                        }
+                        else
+                            lvDownload.Items.Add(list);
+                    }
+                    else
+                        lvDownload.Items.Add(list);
                 }
                 Console.WriteLine("Numrows = " + numRows);
             }
@@ -949,8 +976,7 @@ namespace UserInfo
             }
         }
 
-        #endregion
 
-        
+        #endregion
     }
 }

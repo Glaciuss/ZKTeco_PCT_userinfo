@@ -87,6 +87,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.rtTimer = new System.Windows.Forms.Timer(this.components);
+            this.uploadSQL = new System.Windows.Forms.Button();
             this.tab1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -189,6 +190,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.uploadSQL);
             this.groupBox4.Controls.Add(this.addDemo);
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Controls.Add(this.label8);
@@ -205,11 +207,11 @@
             // 
             // addDemo
             // 
-            this.addDemo.Location = new System.Drawing.Point(367, 19);
+            this.addDemo.Location = new System.Drawing.Point(346, 19);
             this.addDemo.Name = "addDemo";
-            this.addDemo.Size = new System.Drawing.Size(94, 23);
+            this.addDemo.Size = new System.Drawing.Size(115, 23);
             this.addDemo.TabIndex = 77;
-            this.addDemo.Text = "DemoAdd";
+            this.addDemo.Text = "DownloadFrom(SQL)";
             this.addDemo.UseVisualStyleBackColor = true;
             this.addDemo.Click += new System.EventHandler(this.addDemo_Click);
             // 
@@ -680,7 +682,6 @@
             this.tabPage3.Controls.Add(this.txtPort);
             this.tabPage3.Controls.Add(this.txtIP);
             this.tabPage3.Controls.Add(this.btnConnect);
-            this.tabPage3.Cursor = System.Windows.Forms.Cursors.Default;
             this.tabPage3.ForeColor = System.Drawing.Color.DarkBlue;
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
@@ -759,6 +760,16 @@
             this.rtTimer.Enabled = true;
             this.rtTimer.Interval = 5000;
             this.rtTimer.Tick += new System.EventHandler(this.rtTimer_Tick);
+            // 
+            // uploadSQL
+            // 
+            this.uploadSQL.Location = new System.Drawing.Point(370, 48);
+            this.uploadSQL.Name = "uploadSQL";
+            this.uploadSQL.Size = new System.Drawing.Size(91, 23);
+            this.uploadSQL.TabIndex = 78;
+            this.uploadSQL.Text = "UploadTo(SQL)";
+            this.uploadSQL.UseVisualStyleBackColor = true;
+            this.uploadSQL.Click += new System.EventHandler(this.uploadSQL_Click);
             // 
             // UserInfoMain
             // 
@@ -866,6 +877,7 @@
         private System.Windows.Forms.ListBox lbRTShow;
         private System.Windows.Forms.Timer rtTimer;
         private System.Windows.Forms.Button addDemo;
+        private System.Windows.Forms.Button uploadSQL;
     }
 }
 
