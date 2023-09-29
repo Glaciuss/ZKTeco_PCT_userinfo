@@ -172,13 +172,31 @@ namespace UserInfo
         {
             if (lvDownload.Items.Count > 0) 
             {
+                Console.WriteLine("item count = " + lvDownload.Items.Count);
                 if (lvDownload.Items[0].SubItems[3].Text == "empty")
                 {
                     Console.WriteLine("one of empty");
                 }
                 else
-                    Console.WriteLine("Can save!");
+                {
+                    string connetionString;
+                    SqlConnection cnn;
+                    connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
+                    cnn = new SqlConnection(connetionString);
+
+                    String query = "INSERT INTO dbo.EmpFinger (FingerNumber,EmployeeID,Hand,Finger,FingerCode) ";
+                    query += "VALUES (@FingerNumber,@EmployeeID,@Hand, @Finger,@FingerCode)";
+                    SqlCommand myCommand = new SqlCommand(query, cnn);
+
+                    myCommand.Parameters.AddWithValue("@EmployeeID", "12345");
+                    myCommand.ExecuteNonQuery();
+
+                    MessageBox.Show("saved!", "Error");
+                }
             }
+            else
+                MessageBox.Show("There is no data to upload!", "Error");
+                return;
         }
 
         private void LoadUserList()
@@ -195,7 +213,8 @@ namespace UserInfo
                 cmd = new SqlCommand("select * from Employee", cnn);
                 cmdFG = new SqlCommand("select * from EmpFinger", cnn);
 
-                string selectquery = "select * from Employee where EmployeeID = 66010007070001";
+                string selectquery = "select * from Employee ";
+                selectquery += "where EmployeeID = 66010007070001"; //for demo test
                 string selectqueryFG = "select * from EmpFinger";
 
                 SqlDataAdapter adpt = new SqlDataAdapter(selectquery, cnn);
@@ -216,6 +235,18 @@ namespace UserInfo
                                   Hand = leftJoin == null ? "empty" : leftJoin.Field<string>("Hand"),
                                   FingerIndex = leftJoin == null ? "empty" : leftJoin.Field<string>("Finger")
                               });
+
+
+                //check exist data
+                if (lvDownload.Items.Count > 0)
+                {
+                    bool IDexists = table.AsEnumerable().Where(c => c.Field<string>("EmployeeID").Equals(lvDownload.Items[0].SubItems[0].Text)).Count() > 0;
+                    if (IDexists == true)
+                    {
+                        MessageBox.Show("Already have an EmployeeID " + lvDownload.Items[0].SubItems[0].Text, "Error");
+                        return;
+                    }
+                }
 
                 int numRows = 0;
 
@@ -297,21 +328,7 @@ namespace UserInfo
                         list.SubItems.Add("false");
                     }
                     list.SubItems.Add(iFlag.ToString());
-
-                    //check exist data
-                    if (lvDownload.Items.Count > numRows-1)
-                    {
-                        bool IDexists = table.AsEnumerable().Where(c => c.Field<string>("EmployeeID").Equals(list.SubItems[0].Text)).Count() > 0;
-                        if (IDexists == true)
-                        {
-                            MessageBox.Show("Already have an EmployeeID " + lvDownload.Items[0].Text, "Error");
-                            return;
-                        }
-                        else
-                            lvDownload.Items.Add(list);
-                    }
-                    else
-                        lvDownload.Items.Add(list);
+                    lvDownload.Items.Add(list);
                 }
                 Console.WriteLine("Numrows = " + numRows);
             }
