@@ -176,7 +176,7 @@ namespace UserInfo
                 //begin upload
                 for (int r = 1; r <= lvDownload.Items.Count; r++) // read all (1 by 1)
                 {
-                    if (lvDownload.Items[r - 1].SubItems[3].Text == "empty") // check have finger data?
+                    if (lvDownload.Items[r - 1].SubItems[3].Text == "") // check have finger data?
                     {
                         list.Add(false);
                     }
@@ -196,69 +196,16 @@ namespace UserInfo
                         cnn = new SqlConnection(connetionString);
                         cnn.Open();
 
-                        String query = @"DECLARE @FingerNumber INT;" + "SELECT @FingerNumber  =  MAX(FingerNumber)+1 from EmpFinger ";//col 1 in SQL (dbo.EmpFinger)
-                        query += "INSERT INTO dbo.EmpFinger (FingerNumber,EmployeeID,Hand,Finger,FingerCode) ";
-                        query += "VALUES (@FingerNumber,@EmployeeID,@Hand, @Finger,@FingerCode)";
+                        //String query = @"DECLARE @FingerNumber INT;" + "SELECT @FingerNumber  =  MAX(FingerNumber)+1 from EmpFinger ";//col 1 in SQL (dbo.EmpFinger)
+                        String query = "INSERT INTO dbo.EmpFingerEco (EmployeeNumber,EmployeeID,EmployeeName,FingerIndex,FingerCode) ";
+                        query += "VALUES (@EmployeeNumber,@EmployeeID,@EmployeeName, @FingerIndex,@FingerCode)";
                         SqlCommand uploadFinger = new SqlCommand(query, cnn);
 
-                        uploadFinger.Parameters.AddWithValue("@EmployeeID", lvDownload.Items[r - 1].SubItems[0].Text);//col 2 in SQL (dbo.EmpFinger)
-
-                        //convert to finger index //col 3 and col 4 in SQL (dbo.EmpFinger)
-                        if (lvDownload.Items[r - 1].SubItems[2].Text == "0")
-                        {
-                            uploadFinger.Parameters.AddWithValue("@Hand", "L");
-                            uploadFinger.Parameters.AddWithValue("@Finger", "Little");
-                        }
-                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "1")
-                        {
-                            uploadFinger.Parameters.AddWithValue("@Hand", "L");
-                            uploadFinger.Parameters.AddWithValue("@Finger", "Ring");
-                        }
-                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "2")
-                        {
-                            uploadFinger.Parameters.AddWithValue("@Hand", "L");
-                            uploadFinger.Parameters.AddWithValue("@Finger", "Middle");
-                        }
-                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "3")
-                        {
-                            uploadFinger.Parameters.AddWithValue("@Hand", "L");
-                            uploadFinger.Parameters.AddWithValue("@Finger", "Index");
-                        }
-                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "4")
-                        {
-                            uploadFinger.Parameters.AddWithValue("@Hand", "L");
-                            uploadFinger.Parameters.AddWithValue("@Finger", "Thumb");
-                        }
-                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "5")
-                        {
-                            uploadFinger.Parameters.AddWithValue("@Hand", "R");
-                            uploadFinger.Parameters.AddWithValue("@Finger", "Thumb");
-                        }
-                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "6")
-                        {
-                            uploadFinger.Parameters.AddWithValue("@Hand", "R");
-                            uploadFinger.Parameters.AddWithValue("@Finger", "Index");
-                        }
-                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "7")
-                        {
-                            uploadFinger.Parameters.AddWithValue("@Hand", "R");
-                            uploadFinger.Parameters.AddWithValue("@Finger", "Middle");
-                        }
-                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "8")
-                        {
-                            uploadFinger.Parameters.AddWithValue("@Hand", "R");
-                            uploadFinger.Parameters.AddWithValue("@Finger", "Ring");
-                        }
-                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "9")
-                        {
-                            uploadFinger.Parameters.AddWithValue("@Hand", "R");
-                            uploadFinger.Parameters.AddWithValue("@Finger", "Little");
-                        }
-                        else
-                            uploadFinger.Parameters.AddWithValue("@Hand", "UN");
-                            uploadFinger.Parameters.AddWithValue("@Finger", "UN");
-
-                        uploadFinger.Parameters.AddWithValue("@FingerCode", lvDownload.Items[r - 1].SubItems[3].Text); //col 5 in SQL (dbo.EmpFinger)
+                        uploadFinger.Parameters.AddWithValue("@EmployeeNumber", lvDownload.Items[r - 1].SubItems[0].Text);//col 1 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.Parameters.AddWithValue("@EmployeeID", lvDownload.Items[r - 1].SubItems[1].Text);//col 2 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.Parameters.AddWithValue("@EmployeeName", lvDownload.Items[r - 1].SubItems[2].Text);//col 3 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.Parameters.AddWithValue("@FingerIndex", lvDownload.Items[r - 1].SubItems[3].Text);//col 4 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.Parameters.AddWithValue("FingerCode", lvDownload.Items[r - 1].SubItems[4].Text);//col 5 in SQL (dbo.EmpFingerEco)
                         uploadFinger.ExecuteNonQuery();
                         cnn.Close();
                     }
@@ -266,6 +213,28 @@ namespace UserInfo
                 else if (!list.Contains(false))//have finger
                 {
                     MessageBox.Show("All data have fingerprint!", "Error");
+
+                    for (int r = 1; r <= lvDownload.Items.Count; r++) // upload to sever SQL (1 by 1)
+                    {
+                        string connetionString;
+                        SqlConnection cnn;
+                        connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
+                        cnn = new SqlConnection(connetionString);
+                        cnn.Open();
+
+                        //String query = @"DECLARE @FingerNumber INT;" + "SELECT @FingerNumber  =  MAX(FingerNumber)+1 from EmpFinger ";//col 1 in SQL (dbo.EmpFinger)
+                        String query = "INSERT INTO dbo.EmpFingerEco (EmployeeNumber,EmployeeID,EmployeeName,FingerIndex,FingerCode) ";
+                        query += "VALUES (@EmployeeNumber,@EmployeeID,@EmployeeName, @FingerIndex,@FingerCode)";
+                        SqlCommand uploadFinger = new SqlCommand(query, cnn);
+
+                        uploadFinger.Parameters.AddWithValue("@EmployeeNumber", lvDownload.Items[r - 1].SubItems[0].Text);//col 1 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.Parameters.AddWithValue("@EmployeeID", lvDownload.Items[r - 1].SubItems[1].Text);//col 2 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.Parameters.AddWithValue("@EmployeeName", lvDownload.Items[r - 1].SubItems[2].Text);//col 3 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.Parameters.AddWithValue("@FingerIndex", lvDownload.Items[r - 1].SubItems[3].Text);//col 4 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.Parameters.AddWithValue("FingerCode", lvDownload.Items[r - 1].SubItems[4].Text);//col 5 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.ExecuteNonQuery();
+                        cnn.Close();
+                    }
                 }
                 else//have some
                     MessageBox.Show("not at all!", "Error");
@@ -277,6 +246,8 @@ namespace UserInfo
 
         private void LoadUserList()
         {
+            lvDownload.Items.Clear();
+
             try
             {
                 string connetionString;
@@ -322,16 +293,16 @@ namespace UserInfo
                               });
 
 
-                //check exist data
-                if (lvDownload.Items.Count > 0)
-                {
-                    bool IDexists = table.AsEnumerable().Where(c => c.Field<string>("EmployeeID").Equals(lvDownload.Items[0].SubItems[0].Text)).Count() > 0;
-                    if (IDexists == true)
-                    {
-                        MessageBox.Show("Already have an EmployeeID " + lvDownload.Items[0].SubItems[0].Text, "Error");
-                        return;
-                    }
-                }
+                ////check exist data
+                //if (lvDownload.Items.Count > 0)
+                //{
+                //    bool IDexists = table.AsEnumerable().Where(c => c.Field<string>("EmployeeID").Equals(lvDownload.Items[0].SubItems[0].Text)).Count() > 0;
+                //    if (IDexists == true)
+                //    {
+                //        MessageBox.Show("Already have an EmployeeID " + lvDownload.Items[0].SubItems[0].Text, "Error");
+                //        return;
+                //    }
+                //}
 
                 int numRows = 0;
 
