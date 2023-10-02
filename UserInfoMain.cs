@@ -170,29 +170,105 @@ namespace UserInfo
 
         private void uploadSQL_Click(object sender, EventArgs e)
         {
-            if (lvDownload.Items.Count > 0) 
+            if (lvDownload.Items.Count > 0) //check have table row?
             {
-                Console.WriteLine("item count = " + lvDownload.Items.Count);
-                if (lvDownload.Items[0].SubItems[3].Text == "empty")
+                var list = new List<bool>();
+                //begin upload
+                for (int r = 1; r <= lvDownload.Items.Count; r++) // read all (1 by 1)
                 {
-                    Console.WriteLine("one of empty");
+                    if (lvDownload.Items[r - 1].SubItems[3].Text == "empty") // check have finger data?
+                    {
+                        list.Add(false);
+                    }
+                    else
+                        list.Add(true);      
                 }
-                else
+
+                if (!list.Contains(true))//no finger
                 {
-                    string connetionString;
-                    SqlConnection cnn;
-                    connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
-                    cnn = new SqlConnection(connetionString);
+                    MessageBox.Show("All data no fingerprint!", "Error");
 
-                    String query = "INSERT INTO dbo.EmpFinger (FingerNumber,EmployeeID,Hand,Finger,FingerCode) ";
-                    query += "VALUES (@FingerNumber,@EmployeeID,@Hand, @Finger,@FingerCode)";
-                    SqlCommand myCommand = new SqlCommand(query, cnn);
+                    for (int r = 1; r <= lvDownload.Items.Count; r++) // upload to sever SQL (1 by 1)
+                    {
+                        string connetionString;
+                        SqlConnection cnn;
+                        connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
+                        cnn = new SqlConnection(connetionString);
+                        cnn.Open();
 
-                    myCommand.Parameters.AddWithValue("@EmployeeID", "12345");
-                    myCommand.ExecuteNonQuery();
+                        String query = @"DECLARE @FingerNumber INT;" + "SELECT @FingerNumber  =  MAX(FingerNumber)+1 from EmpFinger ";//col 1 in SQL (dbo.EmpFinger)
+                        query += "INSERT INTO dbo.EmpFinger (FingerNumber,EmployeeID,Hand,Finger,FingerCode) ";
+                        query += "VALUES (@FingerNumber,@EmployeeID,@Hand, @Finger,@FingerCode)";
+                        SqlCommand uploadFinger = new SqlCommand(query, cnn);
 
-                    MessageBox.Show("saved!", "Error");
+                        uploadFinger.Parameters.AddWithValue("@EmployeeID", lvDownload.Items[r - 1].SubItems[0].Text);//col 2 in SQL (dbo.EmpFinger)
+
+                        //convert to finger index //col 3 and col 4 in SQL (dbo.EmpFinger)
+                        if (lvDownload.Items[r - 1].SubItems[2].Text == "0")
+                        {
+                            uploadFinger.Parameters.AddWithValue("@Hand", "L");
+                            uploadFinger.Parameters.AddWithValue("@Finger", "Little");
+                        }
+                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "1")
+                        {
+                            uploadFinger.Parameters.AddWithValue("@Hand", "L");
+                            uploadFinger.Parameters.AddWithValue("@Finger", "Ring");
+                        }
+                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "2")
+                        {
+                            uploadFinger.Parameters.AddWithValue("@Hand", "L");
+                            uploadFinger.Parameters.AddWithValue("@Finger", "Middle");
+                        }
+                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "3")
+                        {
+                            uploadFinger.Parameters.AddWithValue("@Hand", "L");
+                            uploadFinger.Parameters.AddWithValue("@Finger", "Index");
+                        }
+                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "4")
+                        {
+                            uploadFinger.Parameters.AddWithValue("@Hand", "L");
+                            uploadFinger.Parameters.AddWithValue("@Finger", "Thumb");
+                        }
+                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "5")
+                        {
+                            uploadFinger.Parameters.AddWithValue("@Hand", "R");
+                            uploadFinger.Parameters.AddWithValue("@Finger", "Thumb");
+                        }
+                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "6")
+                        {
+                            uploadFinger.Parameters.AddWithValue("@Hand", "R");
+                            uploadFinger.Parameters.AddWithValue("@Finger", "Index");
+                        }
+                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "7")
+                        {
+                            uploadFinger.Parameters.AddWithValue("@Hand", "R");
+                            uploadFinger.Parameters.AddWithValue("@Finger", "Middle");
+                        }
+                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "8")
+                        {
+                            uploadFinger.Parameters.AddWithValue("@Hand", "R");
+                            uploadFinger.Parameters.AddWithValue("@Finger", "Ring");
+                        }
+                        else if (lvDownload.Items[r - 1].SubItems[2].Text == "9")
+                        {
+                            uploadFinger.Parameters.AddWithValue("@Hand", "R");
+                            uploadFinger.Parameters.AddWithValue("@Finger", "Little");
+                        }
+                        else
+                            uploadFinger.Parameters.AddWithValue("@Hand", "UN");
+                            uploadFinger.Parameters.AddWithValue("@Finger", "UN");
+
+                        uploadFinger.Parameters.AddWithValue("@FingerCode", lvDownload.Items[r - 1].SubItems[3].Text); //col 5 in SQL (dbo.EmpFinger)
+                        uploadFinger.ExecuteNonQuery();
+                        cnn.Close();
+                    }
                 }
+                else if (!list.Contains(false))//have finger
+                {
+                    MessageBox.Show("All data have fingerprint!", "Error");
+                }
+                else//have some
+                    MessageBox.Show("not at all!", "Error");
             }
             else
                 MessageBox.Show("There is no data to upload!", "Error");

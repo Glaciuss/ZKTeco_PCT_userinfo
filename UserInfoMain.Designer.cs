@@ -30,6 +30,7 @@
             this.ch7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.uploadSQL = new System.Windows.Forms.Button();
             this.addDemo = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -87,7 +88,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.rtTimer = new System.Windows.Forms.Timer(this.components);
-            this.uploadSQL = new System.Windows.Forms.Button();
             this.tab1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -156,17 +156,17 @@
             // ch2
             // 
             this.ch2.Text = "Name";
-            this.ch2.Width = 41;
+            this.ch2.Width = 51;
             // 
             // ch3
             // 
             this.ch3.Text = "FingerIndex";
-            this.ch3.Width = 52;
+            this.ch3.Width = 71;
             // 
             // ch4
             // 
             this.ch4.Text = "tmpData";
-            this.ch4.Width = 61;
+            this.ch4.Width = 65;
             // 
             // ch5
             // 
@@ -204,6 +204,16 @@
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Fingerprint Templates of 9.0&&10.0 Arithmetic";
+            // 
+            // uploadSQL
+            // 
+            this.uploadSQL.Location = new System.Drawing.Point(370, 48);
+            this.uploadSQL.Name = "uploadSQL";
+            this.uploadSQL.Size = new System.Drawing.Size(91, 23);
+            this.uploadSQL.TabIndex = 78;
+            this.uploadSQL.Text = "UploadTo(SQL)";
+            this.uploadSQL.UseVisualStyleBackColor = true;
+            this.uploadSQL.Click += new System.EventHandler(this.uploadSQL_Click);
             // 
             // addDemo
             // 
@@ -760,16 +770,6 @@
             this.rtTimer.Enabled = true;
             this.rtTimer.Interval = 5000;
             this.rtTimer.Tick += new System.EventHandler(this.rtTimer_Tick);
-            // 
-            // uploadSQL
-            // 
-            this.uploadSQL.Location = new System.Drawing.Point(370, 48);
-            this.uploadSQL.Name = "uploadSQL";
-            this.uploadSQL.Size = new System.Drawing.Size(91, 23);
-            this.uploadSQL.TabIndex = 78;
-            this.uploadSQL.Text = "UploadTo(SQL)";
-            this.uploadSQL.UseVisualStyleBackColor = true;
-            this.uploadSQL.Click += new System.EventHandler(this.uploadSQL_Click);
             // 
             // UserInfoMain
             // 
