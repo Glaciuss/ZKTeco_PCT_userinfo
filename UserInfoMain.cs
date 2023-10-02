@@ -174,40 +174,45 @@ namespace UserInfo
             {
                 var list = new List<bool>();
                 //begin upload
+
+                string connetionString;
+                SqlConnection cnn;
+                connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
+                cnn = new SqlConnection(connetionString);
+                cnn.Open();
+
+                
+
                 for (int r = 1; r <= lvDownload.Items.Count; r++) // read all (1 by 1)
                 {
                     if (lvDownload.Items[r - 1].SubItems[3].Text == "") // check have finger data?
                     {
-                        list.Add(false);
+                        list.Add(false);//no finger data
                     }
                     else
-                        list.Add(true);      
+                    {
+                        string selectquery = "select * from EmpFingerEco where FingerCode = '" + lvDownload.Items[r - 1].SubItems[0].Text + "'";
+                        SqlCommand cmd = new SqlCommand(selectquery, cnn);
+                        SqlDataReader reader1;
+                        reader1 = cmd.ExecuteReader();
+
+                        if (reader1.Read())
+                        {
+                            MessageBox.Show("DATA FOUND");
+                            cnn.Close();
+                            return;
+                        }
+                        else
+                        {
+                            list.Add(true);
+                        }
+                    }    
                 }
 
                 if (!list.Contains(true))//no finger
                 {
                     MessageBox.Show("All data no fingerprint!", "Error");
-
-                    for (int r = 1; r <= lvDownload.Items.Count; r++) // upload to sever SQL (1 by 1)
-                    {
-                        string connetionString;
-                        SqlConnection cnn;
-                        connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
-                        cnn = new SqlConnection(connetionString);
-                        cnn.Open();
-
-                        //String query = @"DECLARE @FingerNumber INT;" + "SELECT @FingerNumber  =  MAX(FingerNumber)+1 from EmpFinger ";//col 1 in SQL (dbo.EmpFinger)
-                        String query = "INSERT INTO dbo.EmpFingerEco (EmployeeNumber,EmployeeName,FingerIndex,FingerCode) ";
-                        query += "VALUES (@EmployeeNumber,@EmployeeName, @FingerIndex,@FingerCode)";
-                        SqlCommand uploadFinger = new SqlCommand(query, cnn);
-
-                        uploadFinger.Parameters.AddWithValue("@EmployeeNumber", lvDownload.Items[r - 1].SubItems[0].Text);//col 1 in SQL (dbo.EmpFingerEco)
-                        uploadFinger.Parameters.AddWithValue("@EmployeeName", lvDownload.Items[r - 1].SubItems[1].Text);//col 2 in SQL (dbo.EmpFingerEco)
-                        uploadFinger.Parameters.AddWithValue("@FingerIndex", lvDownload.Items[r - 1].SubItems[2].Text);//col 3 in SQL (dbo.EmpFingerEco)
-                        uploadFinger.Parameters.AddWithValue("FingerCode", lvDownload.Items[r - 1].SubItems[3].Text);//col 4 in SQL (dbo.EmpFingerEco)
-                        uploadFinger.ExecuteNonQuery();
-                        cnn.Close();
-                    }
+                    cnn.Close();
                 }
                 else if (!list.Contains(false))//have finger
                 {
@@ -215,12 +220,6 @@ namespace UserInfo
 
                     for (int r = 1; r <= lvDownload.Items.Count; r++) // upload to sever SQL (1 by 1)
                     {
-                        string connetionString;
-                        SqlConnection cnn;
-                        connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
-                        cnn = new SqlConnection(connetionString);
-                        cnn.Open();
-
                         //String query = @"DECLARE @FingerNumber INT;" + "SELECT @FingerNumber  =  MAX(FingerNumber)+1 from EmpFinger ";//col 1 in SQL (dbo.EmpFinger)
                         String query = "INSERT INTO dbo.EmpFingerEco (EmployeeNumber,EmployeeName,FingerIndex,FingerCode) ";
                         query += "VALUES (@EmployeeNumber,@EmployeeName, @FingerIndex,@FingerCode)";
@@ -230,9 +229,9 @@ namespace UserInfo
                         uploadFinger.Parameters.AddWithValue("@EmployeeName", lvDownload.Items[r - 1].SubItems[1].Text);//col 2 in SQL (dbo.EmpFingerEco)
                         uploadFinger.Parameters.AddWithValue("@FingerIndex", lvDownload.Items[r - 1].SubItems[2].Text);//col 3 in SQL (dbo.EmpFingerEco)
                         uploadFinger.Parameters.AddWithValue("FingerCode", lvDownload.Items[r - 1].SubItems[3].Text);//col 4 in SQL (dbo.EmpFingerEco)
-                        uploadFinger.ExecuteNonQuery();
-                        cnn.Close();
+                        uploadFinger.ExecuteNonQuery();  
                     }
+                    cnn.Close();
                 }
                 else//have some
                     MessageBox.Show("not at all!", "Error");
