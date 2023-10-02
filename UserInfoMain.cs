@@ -341,46 +341,57 @@ namespace UserInfo
                     bool bEnabled = false;
 
                     //sync 0-9 finger
-                    string idwFingerIndex = "";
+                    int idwFingerIndex = 0;
+                    //string idwFingerIndex = "";
                     if (item.Hand == "L" & item.FingerIndex == "Little")
                     {
-                        idwFingerIndex = "0";
+                        idwFingerIndex = 0;
+                        //idwFingerIndex = "0";
                     }
                     else if (item.Hand == "L" & item.FingerIndex == "Ring")
                     {
-                        idwFingerIndex = "1";
+                        idwFingerIndex = 1;
+                        //idwFingerIndex = "1";
                     }
                     else if (item.Hand == "L" & item.FingerIndex == "Middle")
                     {
-                        idwFingerIndex = "2";
+                        idwFingerIndex = 2;
+                        //idwFingerIndex = "2";
                     }
                     else if (item.Hand == "L" & item.FingerIndex == "Index")
                     {
-                        idwFingerIndex = "3";
+                        idwFingerIndex = 3;
+                        //idwFingerIndex = "3";
                     }
                     else if (item.Hand == "L" & item.FingerIndex == "Thumb")
                     {
-                        idwFingerIndex = "4";
+                        idwFingerIndex = 4;
+                        //idwFingerIndex = "4";
                     }
                     else if (item.Hand == "R" & item.FingerIndex == "Thumb")
                     {
-                        idwFingerIndex = "5";
+                        idwFingerIndex = 5;
+                        //idwFingerIndex = "5";
                     }
                     else if (item.Hand == "R" & item.FingerIndex == "Index")
                     {
-                        idwFingerIndex = "6";
+                        idwFingerIndex = 6;
+                        //idwFingerIndex = "6";
                     }
                     else if (item.Hand == "R" & item.FingerIndex == "Middle")
                     {
-                        idwFingerIndex = "7";
+                        idwFingerIndex = 7;
+                        //idwFingerIndex = "7";
                     }
                     else if (item.Hand == "R" & item.FingerIndex == "Ring")
                     {
-                        idwFingerIndex = "8";
+                        idwFingerIndex = 8;
+                        //idwFingerIndex = "8";
                     }
                     else if (item.Hand == "R" & item.FingerIndex == "Little")
                     {
-                        idwFingerIndex = "9";
+                        idwFingerIndex = 9;
+                        //idwFingerIndex = "9";
                     }
 
                     string sTmpData = item.FGCode;
