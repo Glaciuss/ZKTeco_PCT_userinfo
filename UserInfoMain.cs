@@ -197,15 +197,14 @@ namespace UserInfo
                         cnn.Open();
 
                         //String query = @"DECLARE @FingerNumber INT;" + "SELECT @FingerNumber  =  MAX(FingerNumber)+1 from EmpFinger ";//col 1 in SQL (dbo.EmpFinger)
-                        String query = "INSERT INTO dbo.EmpFingerEco (EmployeeNumber,EmployeeID,EmployeeName,FingerIndex,FingerCode) ";
-                        query += "VALUES (@EmployeeNumber,@EmployeeID,@EmployeeName, @FingerIndex,@FingerCode)";
+                        String query = "INSERT INTO dbo.EmpFingerEco (EmployeeNumber,EmployeeName,FingerIndex,FingerCode) ";
+                        query += "VALUES (@EmployeeNumber,@EmployeeName, @FingerIndex,@FingerCode)";
                         SqlCommand uploadFinger = new SqlCommand(query, cnn);
 
                         uploadFinger.Parameters.AddWithValue("@EmployeeNumber", lvDownload.Items[r - 1].SubItems[0].Text);//col 1 in SQL (dbo.EmpFingerEco)
-                        uploadFinger.Parameters.AddWithValue("@EmployeeID", lvDownload.Items[r - 1].SubItems[1].Text);//col 2 in SQL (dbo.EmpFingerEco)
-                        uploadFinger.Parameters.AddWithValue("@EmployeeName", lvDownload.Items[r - 1].SubItems[2].Text);//col 3 in SQL (dbo.EmpFingerEco)
-                        uploadFinger.Parameters.AddWithValue("@FingerIndex", lvDownload.Items[r - 1].SubItems[3].Text);//col 4 in SQL (dbo.EmpFingerEco)
-                        uploadFinger.Parameters.AddWithValue("FingerCode", lvDownload.Items[r - 1].SubItems[4].Text);//col 5 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.Parameters.AddWithValue("@EmployeeName", lvDownload.Items[r - 1].SubItems[1].Text);//col 2 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.Parameters.AddWithValue("@FingerIndex", lvDownload.Items[r - 1].SubItems[2].Text);//col 3 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.Parameters.AddWithValue("FingerCode", lvDownload.Items[r - 1].SubItems[3].Text);//col 4 in SQL (dbo.EmpFingerEco)
                         uploadFinger.ExecuteNonQuery();
                         cnn.Close();
                     }
@@ -223,15 +222,14 @@ namespace UserInfo
                         cnn.Open();
 
                         //String query = @"DECLARE @FingerNumber INT;" + "SELECT @FingerNumber  =  MAX(FingerNumber)+1 from EmpFinger ";//col 1 in SQL (dbo.EmpFinger)
-                        String query = "INSERT INTO dbo.EmpFingerEco (EmployeeNumber,EmployeeID,EmployeeName,FingerIndex,FingerCode) ";
-                        query += "VALUES (@EmployeeNumber,@EmployeeID,@EmployeeName, @FingerIndex,@FingerCode)";
+                        String query = "INSERT INTO dbo.EmpFingerEco (EmployeeNumber,EmployeeName,FingerIndex,FingerCode) ";
+                        query += "VALUES (@EmployeeNumber,@EmployeeName, @FingerIndex,@FingerCode)";
                         SqlCommand uploadFinger = new SqlCommand(query, cnn);
 
                         uploadFinger.Parameters.AddWithValue("@EmployeeNumber", lvDownload.Items[r - 1].SubItems[0].Text);//col 1 in SQL (dbo.EmpFingerEco)
-                        uploadFinger.Parameters.AddWithValue("@EmployeeID", lvDownload.Items[r - 1].SubItems[1].Text);//col 2 in SQL (dbo.EmpFingerEco)
-                        uploadFinger.Parameters.AddWithValue("@EmployeeName", lvDownload.Items[r - 1].SubItems[2].Text);//col 3 in SQL (dbo.EmpFingerEco)
-                        uploadFinger.Parameters.AddWithValue("@FingerIndex", lvDownload.Items[r - 1].SubItems[3].Text);//col 4 in SQL (dbo.EmpFingerEco)
-                        uploadFinger.Parameters.AddWithValue("FingerCode", lvDownload.Items[r - 1].SubItems[4].Text);//col 5 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.Parameters.AddWithValue("@EmployeeName", lvDownload.Items[r - 1].SubItems[1].Text);//col 2 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.Parameters.AddWithValue("@FingerIndex", lvDownload.Items[r - 1].SubItems[2].Text);//col 3 in SQL (dbo.EmpFingerEco)
+                        uploadFinger.Parameters.AddWithValue("FingerCode", lvDownload.Items[r - 1].SubItems[3].Text);//col 4 in SQL (dbo.EmpFingerEco)
                         uploadFinger.ExecuteNonQuery();
                         cnn.Close();
                     }
@@ -253,30 +251,24 @@ namespace UserInfo
                 string connetionString;
                 SqlConnection cnn;
                 SqlCommand cmd;
-                SqlCommand cmdFG;
                 SqlCommand cmdIndex;
                 connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
                 cnn = new SqlConnection(connetionString);
 
                 cmd = new SqlCommand("select * from Employee", cnn);
-                cmdFG = new SqlCommand("select * from EmpFinger", cnn);
                 cmdIndex = new SqlCommand("select * from EmpIndex", cnn);
 
                 string selectquery = "select * from Employee ";
                 selectquery += "where EmployeeID = 66010007070001"; //for demo test
-                string selectqueryFG = "select * from EmpFinger";
                 string selectqueryIndex = "select * from EmpIndex";
 
                 SqlDataAdapter adpt = new SqlDataAdapter(selectquery, cnn);
-                SqlDataAdapter adptFG = new SqlDataAdapter(selectqueryFG, cnn);
                 SqlDataAdapter adptIndex = new SqlDataAdapter(selectqueryIndex, cnn);
 
                 DataTable table = new DataTable();
-                DataTable tableFG = new DataTable();
                 DataTable tableIndex = new DataTable();
 
                 adpt.Fill(table);
-                adptFG.Fill(tableFG);
                 adptIndex.Fill(tableIndex);
 
                 var empJoin = (from TBEmp in table.AsEnumerable() join TBFinger in tableIndex.AsEnumerable()
@@ -286,23 +278,8 @@ namespace UserInfo
                               {
                                   EmpID = TBEmp.Field<string>("EmployeeID"),
                                   EmpName = TBEmp.Field<string>("EmployeeName"),
-                                  //EmpIndex = TBEmp.Field<string>("EmployeeNumber")
                                   EmpIndex = leftJoin == null ? "empty" : leftJoin.Field<string>("EmployeeNumber")
-                                  //Hand = leftJoin == null ? "empty" : leftJoin.Field<string>("Hand"),
-                                  //FingerIndex = leftJoin == null ? "empty" : leftJoin.Field<string>("Finger")
                               });
-
-
-                ////check exist data
-                //if (lvDownload.Items.Count > 0)
-                //{
-                //    bool IDexists = table.AsEnumerable().Where(c => c.Field<string>("EmployeeID").Equals(lvDownload.Items[0].SubItems[0].Text)).Count() > 0;
-                //    if (IDexists == true)
-                //    {
-                //        MessageBox.Show("Already have an EmployeeID " + lvDownload.Items[0].SubItems[0].Text, "Error");
-                //        return;
-                //    }
-                //}
 
                 int numRows = 0;
 
@@ -313,57 +290,13 @@ namespace UserInfo
                     numRows++;
 
                     //set demo value
-                    //string sdwEnrollNumber = (lvDownload.Items.Count + 1).ToString();
                     string sdwEnrollNumber = item.EmpIndex;
                     string sName = item.EmpName;
                     string sPassword = "";
                     int iPrivilege = 0;
                     bool bEnabled = true;
 
-                    ////sync 0-9 finger
                     int idwFingerIndex = 0;
-                    //if (item.Hand == "L" & item.FingerIndex == "Little")
-                    //{
-                    //    idwFingerIndex = 0;
-                    //}
-                    //else if (item.Hand == "L" & item.FingerIndex == "Ring")
-                    //{
-                    //    idwFingerIndex = 1;
-                    //}
-                    //else if (item.Hand == "L" & item.FingerIndex == "Middle")
-                    //{
-                    //    idwFingerIndex = 2;
-                    //}
-                    //else if (item.Hand == "L" & item.FingerIndex == "Index")
-                    //{
-                    //    idwFingerIndex = 3;
-                    //}
-                    //else if (item.Hand == "L" & item.FingerIndex == "Thumb")
-                    //{
-                    //    idwFingerIndex = 4;
-                    //}
-                    //else if (item.Hand == "R" & item.FingerIndex == "Thumb")
-                    //{
-                    //    idwFingerIndex = 5;
-                    //}
-                    //else if (item.Hand == "R" & item.FingerIndex == "Index")
-                    //{
-                    //    idwFingerIndex = 6;
-                    //}
-                    //else if (item.Hand == "R" & item.FingerIndex == "Middle")
-                    //{
-                    //    idwFingerIndex = 7;
-                    //}
-                    //else if (item.Hand == "R" & item.FingerIndex == "Ring")
-                    //{
-                    //    idwFingerIndex = 8;
-                    //}
-                    //else if (item.Hand == "R" & item.FingerIndex == "Little")
-                    //{
-                    //    idwFingerIndex = 9;
-                    //}
-
-                    //string sTmpData = item.FGCode;
                     string sTmpData = "";
                     //int iTmpLength = 0;
                     int iFlag = 1;
