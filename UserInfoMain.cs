@@ -283,33 +283,42 @@ namespace UserInfo
                 SqlConnection cnn;
                 SqlCommand cmd;
                 SqlCommand cmdFG;
+                SqlCommand cmdIndex;
                 connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
                 cnn = new SqlConnection(connetionString);
 
                 cmd = new SqlCommand("select * from Employee", cnn);
                 cmdFG = new SqlCommand("select * from EmpFinger", cnn);
+                cmdIndex = new SqlCommand("select * from EmpIndex", cnn);
 
                 string selectquery = "select * from Employee ";
                 selectquery += "where EmployeeID = 66010007070001"; //for demo test
                 string selectqueryFG = "select * from EmpFinger";
+                string selectqueryIndex = "select * from EmpIndex";
 
                 SqlDataAdapter adpt = new SqlDataAdapter(selectquery, cnn);
                 SqlDataAdapter adptFG = new SqlDataAdapter(selectqueryFG, cnn);
+                SqlDataAdapter adptIndex = new SqlDataAdapter(selectqueryIndex, cnn);
+
                 DataTable table = new DataTable();
                 DataTable tableFG = new DataTable();
+                DataTable tableIndex = new DataTable();
+
                 adpt.Fill(table);
                 adptFG.Fill(tableFG);
+                adptIndex.Fill(tableIndex);
 
-                var empJoin = (from TBEmp in table.AsEnumerable() join TBFinger in tableFG.AsEnumerable()
+                var empJoin = (from TBEmp in table.AsEnumerable() join TBFinger in tableIndex.AsEnumerable()
                               on TBEmp.Field<string>("EmployeeID") equals TBFinger.Field<string>("EmployeeID")
                               into tempJoin from leftJoin in tempJoin.DefaultIfEmpty()
                               select new
                               {
                                   EmpID = TBEmp.Field<string>("EmployeeID"),
                                   EmpName = TBEmp.Field<string>("EmployeeName"),
-                                  FGCode = leftJoin == null ? "empty" : leftJoin.Field<string>("FingerCode"),
-                                  Hand = leftJoin == null ? "empty" : leftJoin.Field<string>("Hand"),
-                                  FingerIndex = leftJoin == null ? "empty" : leftJoin.Field<string>("Finger")
+                                  //EmpIndex = TBEmp.Field<string>("EmployeeNumber")
+                                  EmpIndex = leftJoin == null ? "empty" : leftJoin.Field<string>("EmployeeNumber")
+                                  //Hand = leftJoin == null ? "empty" : leftJoin.Field<string>("Hand"),
+                                  //FingerIndex = leftJoin == null ? "empty" : leftJoin.Field<string>("Finger")
                               });
 
 
@@ -328,73 +337,63 @@ namespace UserInfo
 
                 foreach (var item in empJoin)
                 {
-                    Console.WriteLine(String.Format("EmpID = {0}, EmpName = {1}, FGCode = {2}, Finger = {3}", 
-                        item.EmpID, item.EmpName, item.FGCode, item.FingerIndex));
+                    Console.WriteLine(String.Format("EmpID = {0}, EmpName = {1}, EmpIndex = {2}", 
+                        item.EmpID, item.EmpName, item.EmpIndex));
                     numRows++;
 
                     //set demo value
                     //string sdwEnrollNumber = (lvDownload.Items.Count + 1).ToString();
-                    string sdwEnrollNumber = item.EmpID;
+                    string sdwEnrollNumber = item.EmpIndex;
                     string sName = item.EmpName;
-                    string sPassword = "1234";
+                    string sPassword = "";
                     int iPrivilege = 0;
-                    bool bEnabled = false;
+                    bool bEnabled = true;
 
-                    //sync 0-9 finger
+                    ////sync 0-9 finger
                     int idwFingerIndex = 0;
-                    //string idwFingerIndex = "";
-                    if (item.Hand == "L" & item.FingerIndex == "Little")
-                    {
-                        idwFingerIndex = 0;
-                        //idwFingerIndex = "0";
-                    }
-                    else if (item.Hand == "L" & item.FingerIndex == "Ring")
-                    {
-                        idwFingerIndex = 1;
-                        //idwFingerIndex = "1";
-                    }
-                    else if (item.Hand == "L" & item.FingerIndex == "Middle")
-                    {
-                        idwFingerIndex = 2;
-                        //idwFingerIndex = "2";
-                    }
-                    else if (item.Hand == "L" & item.FingerIndex == "Index")
-                    {
-                        idwFingerIndex = 3;
-                        //idwFingerIndex = "3";
-                    }
-                    else if (item.Hand == "L" & item.FingerIndex == "Thumb")
-                    {
-                        idwFingerIndex = 4;
-                        //idwFingerIndex = "4";
-                    }
-                    else if (item.Hand == "R" & item.FingerIndex == "Thumb")
-                    {
-                        idwFingerIndex = 5;
-                        //idwFingerIndex = "5";
-                    }
-                    else if (item.Hand == "R" & item.FingerIndex == "Index")
-                    {
-                        idwFingerIndex = 6;
-                        //idwFingerIndex = "6";
-                    }
-                    else if (item.Hand == "R" & item.FingerIndex == "Middle")
-                    {
-                        idwFingerIndex = 7;
-                        //idwFingerIndex = "7";
-                    }
-                    else if (item.Hand == "R" & item.FingerIndex == "Ring")
-                    {
-                        idwFingerIndex = 8;
-                        //idwFingerIndex = "8";
-                    }
-                    else if (item.Hand == "R" & item.FingerIndex == "Little")
-                    {
-                        idwFingerIndex = 9;
-                        //idwFingerIndex = "9";
-                    }
+                    //if (item.Hand == "L" & item.FingerIndex == "Little")
+                    //{
+                    //    idwFingerIndex = 0;
+                    //}
+                    //else if (item.Hand == "L" & item.FingerIndex == "Ring")
+                    //{
+                    //    idwFingerIndex = 1;
+                    //}
+                    //else if (item.Hand == "L" & item.FingerIndex == "Middle")
+                    //{
+                    //    idwFingerIndex = 2;
+                    //}
+                    //else if (item.Hand == "L" & item.FingerIndex == "Index")
+                    //{
+                    //    idwFingerIndex = 3;
+                    //}
+                    //else if (item.Hand == "L" & item.FingerIndex == "Thumb")
+                    //{
+                    //    idwFingerIndex = 4;
+                    //}
+                    //else if (item.Hand == "R" & item.FingerIndex == "Thumb")
+                    //{
+                    //    idwFingerIndex = 5;
+                    //}
+                    //else if (item.Hand == "R" & item.FingerIndex == "Index")
+                    //{
+                    //    idwFingerIndex = 6;
+                    //}
+                    //else if (item.Hand == "R" & item.FingerIndex == "Middle")
+                    //{
+                    //    idwFingerIndex = 7;
+                    //}
+                    //else if (item.Hand == "R" & item.FingerIndex == "Ring")
+                    //{
+                    //    idwFingerIndex = 8;
+                    //}
+                    //else if (item.Hand == "R" & item.FingerIndex == "Little")
+                    //{
+                    //    idwFingerIndex = 9;
+                    //}
 
-                    string sTmpData = item.FGCode;
+                    //string sTmpData = item.FGCode;
+                    string sTmpData = "";
                     //int iTmpLength = 0;
                     int iFlag = 1;
 
