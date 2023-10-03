@@ -860,14 +860,14 @@ namespace UserInfo
                         //String query = @"DECLARE @FingerNumber INT;" + "SELECT @FingerNumber  =  MAX(FingerNumber)+1 from EmpFinger ";//col 1 in SQL (dbo.EmpFinger)
                         String query = "INSERT INTO dbo.EmpFace (EmployeeNumber,EmployeeName,FaceIndex,FaceCode,FaceLenght) ";
                         query += "VALUES (@EmployeeNumber,@EmployeeName, @FaceIndex,@FaceCode,@FaceLenght)";
-                        SqlCommand uploadFinger = new SqlCommand(query, cnn);
+                        SqlCommand uploadFace = new SqlCommand(query, cnn);
 
-                        uploadFinger.Parameters.AddWithValue("@EmployeeNumber", lvFace.Items[r - 1].SubItems[0].Text);//col 1 in SQL (dbo.EmpFace)
-                        uploadFinger.Parameters.AddWithValue("@EmployeeName", lvFace.Items[r - 1].SubItems[1].Text);//col 2 in SQL (dbo.EmpFace)
-                        uploadFinger.Parameters.AddWithValue("@FaceIndex", lvFace.Items[r - 1].SubItems[4].Text);//col 3 in SQL (dbo.EmpFace)
-                        uploadFinger.Parameters.AddWithValue("FaceCode", lvFace.Items[r - 1].SubItems[5].Text);//col 4 in SQL (dbo.EmpFace)
-                        uploadFinger.Parameters.AddWithValue("FaceLenght", lvFace.Items[r - 1].SubItems[6].Text);//col 5 in SQL (dbo.EmpFace)
-                        uploadFinger.ExecuteNonQuery();
+                        uploadFace.Parameters.AddWithValue("@EmployeeNumber", lvFace.Items[r - 1].SubItems[0].Text);//col 1 in SQL (dbo.EmpFace)
+                        uploadFace.Parameters.AddWithValue("@EmployeeName", lvFace.Items[r - 1].SubItems[1].Text);//col 2 in SQL (dbo.EmpFace)
+                        uploadFace.Parameters.AddWithValue("@FaceIndex", lvFace.Items[r - 1].SubItems[4].Text);//col 3 in SQL (dbo.EmpFace)
+                        uploadFace.Parameters.AddWithValue("FaceCode", lvFace.Items[r - 1].SubItems[5].Text);//col 4 in SQL (dbo.EmpFace)
+                        uploadFace.Parameters.AddWithValue("FaceLenght", lvFace.Items[r - 1].SubItems[6].Text);//col 5 in SQL (dbo.EmpFace)
+                        uploadFace.ExecuteNonQuery();
                     }
                     cnn.Close();
                 }
@@ -1020,6 +1020,30 @@ namespace UserInfo
             lbRTShow.Items.Add("...VerifyMethod:" + iVerifyMethod.ToString());
             lbRTShow.Items.Add("...Workcode:" + iWorkCode.ToString());//the difference between the event OnAttTransaction and OnAttTransactionEx
             lbRTShow.Items.Add("...Time:" + iYear.ToString() + "-" + iMonth.ToString() + "-" + iDay.ToString() + " " + iHour.ToString() + ":" + iMinute.ToString() + ":" + iSecond.ToString());
+
+            //update log here
+            MessageBox.Show("Login Success!", "Alert");
+
+            //begin upload
+            string connetionString;
+            SqlConnection cnn;
+            connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
+            cnn = new SqlConnection(connetionString);
+            cnn.Open();
+
+            String query = "INSERT INTO dbo.Log_ZKTeco (EmployeeNumber,EmployeeName,VerifyMethod,TimeStamp) ";
+            query += "VALUES (@EmployeeNumber,@EmployeeName, @VerifyMethod,@TimeStamp)";
+            SqlCommand uploadLog = new SqlCommand(query, cnn);
+
+            uploadLog.Parameters.AddWithValue("@EmployeeNumber", sEnrollNumber);//col 1 in SQL (dbo.Log_ZKTeco)
+            uploadLog.Parameters.AddWithValue("@VerifyMethod", iVerifyMethod.ToString());//col 3 in SQL (dbo.Log_ZKTeco)
+            uploadLog.Parameters.AddWithValue("@TimeStamp", iYear.ToString() + "-" 
+                + iMonth.ToString() + "-" + iDay.ToString() + " " + iHour.ToString() + ":" + iMinute.ToString() 
+                + ":" + iSecond.ToString());//col 4 in SQL (dbo.Log_ZKTeco)
+
+            uploadLog.ExecuteNonQuery();
+
+            cnn.Close();
         }
 
         //When you have enrolled your finger,this event will be triggered and return the quality of the fingerprint you have enrolled
