@@ -174,15 +174,11 @@ namespace UserInfo
             {
                 var list = new List<bool>();
                 //begin upload
-
                 string connetionString;
                 SqlConnection cnn;
                 connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
                 cnn = new SqlConnection(connetionString);
                 
-
-                
-
                 for (int r = 1; r <= lvDownload.Items.Count; r++) // read all (1 by 1)
                 {
                     if (lvDownload.Items[r - 1].SubItems[3].Text == "") // check have finger data?
@@ -192,14 +188,14 @@ namespace UserInfo
                     else
                     {
                         cnn.Open();
-                        string selectquery = "select * from EmpFingerEco where EmployeeNumber = '" + lvDownload.Items[r - 1].SubItems[0].Text + "'";
+                        string selectquery = "select * from EmpFingerEco where FingerCode = '" + lvDownload.Items[r - 1].SubItems[3].Text + "'";
                         SqlCommand cmd = new SqlCommand(selectquery, cnn);
                         SqlDataReader reader1;
                         reader1 = cmd.ExecuteReader();
 
-                        if (reader1.Read())
+                        if (reader1.Read())// found duplicate = not upload to SQL dbo.EmpFingerEco
                         {
-                            MessageBox.Show("DATA FOUND");
+                            MessageBox.Show("fingerprint already exist");
                             cnn.Close();
                             return;
                         }
@@ -217,7 +213,7 @@ namespace UserInfo
                 }
                 else if (!list.Contains(false))//have finger
                 {
-                    MessageBox.Show("All data have fingerprint!", "Error");
+                    MessageBox.Show("Upload fingerprint!", "Error");
 
                     cnn.Open();
 
@@ -287,8 +283,8 @@ namespace UserInfo
 
                 foreach (var item in empJoin)
                 {
-                    Console.WriteLine(String.Format("EmpID = {0}, EmpName = {1}, EmpIndex = {2}", 
-                        item.EmpID, item.EmpName, item.EmpIndex));
+                    //Console.WriteLine(String.Format("EmpID = {0}, EmpName = {1}, EmpIndex = {2}", 
+                    //    item.EmpID, item.EmpName, item.EmpIndex));
                     numRows++;
 
                     //set demo value
@@ -322,7 +318,6 @@ namespace UserInfo
                     list.SubItems.Add(iFlag.ToString());
                     lvDownload.Items.Add(list);
                 }
-                Console.WriteLine("Numrows = " + numRows);
             }
             catch (SystemException ex)
             {
@@ -596,7 +591,7 @@ namespace UserInfo
             Cursor = Cursors.Default;
         }
 
-        //Clear all the administrator privilege(not clear the administrators themselves)
+        //Clear all the administrator privilege(not clear the administrators themselves)// In case user have password
         private void btnClearAdministrators_Click(object sender, EventArgs e)
         {
             if (bIsConnected == false)
@@ -674,6 +669,84 @@ namespace UserInfo
             Cursor = Cursors.Default;
         }
 
+        private void btnDownloadFace_SQL_Click(object sender, EventArgs e)
+        {
+            lvFace.Items.Clear();
+
+            try
+            {
+                string connetionString;
+                SqlConnection cnn;
+                SqlCommand cmd;
+                connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
+                cnn = new SqlConnection(connetionString);
+
+                cmd = new SqlCommand("select * from EmpFace", cnn);
+
+                string selectquery = "select * from EmpFace";
+
+                SqlDataAdapter adpt = new SqlDataAdapter(selectquery, cnn);
+
+                DataTable table = new DataTable();
+
+                adpt.Fill(table);
+
+                var empJoin = (from TBEmp in table.AsEnumerable()
+                              select new
+                              {
+                                  EmpNum = TBEmp.Field<string>("EmployeeNumber"),
+                                  EmpName = TBEmp.Field<string>("EmployeeName")
+                              });
+
+                int numRows = 0;
+
+                foreach (var item in empJoin)
+                {
+                    Console.WriteLine(String.Format("EmpID = {0}, EmpName = {1}", 
+                        item.EmpNum, item.EmpName));
+                    numRows++;
+
+                    //set demo value
+                    string sUserID = item.EmpNum;
+                    string sName = item.EmpName;
+                    string sPassword = "";
+                    int iPrivilege = 0;
+                    bool bEnabled = true;
+
+                    int iFaceIndex = 0;
+                    string sTmpData = "";
+                    int iLength = 0;
+
+                    //add to list table
+                    ListViewItem list = new ListViewItem();
+                    list.Text = sUserID;
+                    list.SubItems.Add(sName);
+                    list.SubItems.Add(sPassword);
+                    list.SubItems.Add(iPrivilege.ToString());
+                    list.SubItems.Add(iFaceIndex.ToString());
+                    list.SubItems.Add(sTmpData);
+                    list.SubItems.Add(iLength.ToString());
+
+                    if (bEnabled == true)
+                    {
+                        list.SubItems.Add("true");
+                    }
+                    else
+                    {
+                        list.SubItems.Add("false");
+                    }
+                    lvFace.Items.Add(list);
+                }
+            }
+            catch (SystemException ex)
+            {
+                Cursor = Cursors.Default;
+                MessageBox.Show(ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
         private void btnUploadFace_Click(object sender, EventArgs e)
         {
             if (bIsConnected == false)
@@ -733,6 +806,78 @@ namespace UserInfo
             MessageBox.Show("Successfully Upload the face templates, " + "total:" + lvFace.Items.Count.ToString(), "Success");
         }
 
+        private void btnUploadFace_SQL_Click(object sender, EventArgs e)
+        {
+            if (lvFace.Items.Count > 0) //check have table row?
+            {
+                var list = new List<bool>();
+                //begin upload
+                string connetionString;
+                SqlConnection cnn;
+                connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
+                cnn = new SqlConnection(connetionString);
+
+                for (int r = 1; r <= lvFace.Items.Count; r++) // read all (1 by 1)
+                {
+                    if (lvFace.Items[r - 1].SubItems[5].Text == "") // check have face data?
+                    {
+                        list.Add(false);//no finger data
+                    }
+                    else
+                    {
+                        cnn.Open();
+                        string selectquery = "select * from EmpFace where FaceCode = '" + lvFace.Items[r - 1].SubItems[5].Text + "'";
+                        SqlCommand cmd = new SqlCommand(selectquery, cnn);
+                        SqlDataReader reader1;
+                        reader1 = cmd.ExecuteReader();
+
+                        if (reader1.Read())// found duplicate = not upload to SQL dbo.EmpFace
+                        {
+                            MessageBox.Show("face already exist");
+                            cnn.Close();
+                            return;
+                        }
+                        else
+                        {
+                            list.Add(true);
+                        }
+                    }
+                    cnn.Close();
+                }
+
+                if (!list.Contains(true))//all row no face data
+                {
+                    MessageBox.Show("All data no FaceImage!", "Error");
+                }
+                else if (!list.Contains(false))//all row have face data
+                {
+                    MessageBox.Show("Upload FaceImage!", "Error");
+
+                    cnn.Open();
+
+                    for (int r = 1; r <= lvFace.Items.Count; r++) // upload to sever SQL (1 by 1)
+                    {
+                        //String query = @"DECLARE @FingerNumber INT;" + "SELECT @FingerNumber  =  MAX(FingerNumber)+1 from EmpFinger ";//col 1 in SQL (dbo.EmpFinger)
+                        String query = "INSERT INTO dbo.EmpFace (EmployeeNumber,EmployeeName,FaceIndex,FaceCode,FaceLenght) ";
+                        query += "VALUES (@EmployeeNumber,@EmployeeName, @FaceIndex,@FaceCode,@FaceLenght)";
+                        SqlCommand uploadFinger = new SqlCommand(query, cnn);
+
+                        uploadFinger.Parameters.AddWithValue("@EmployeeNumber", lvFace.Items[r - 1].SubItems[0].Text);//col 1 in SQL (dbo.EmpFace)
+                        uploadFinger.Parameters.AddWithValue("@EmployeeName", lvFace.Items[r - 1].SubItems[1].Text);//col 2 in SQL (dbo.EmpFace)
+                        uploadFinger.Parameters.AddWithValue("@FaceIndex", lvFace.Items[r - 1].SubItems[4].Text);//col 3 in SQL (dbo.EmpFace)
+                        uploadFinger.Parameters.AddWithValue("FaceCode", lvFace.Items[r - 1].SubItems[5].Text);//col 4 in SQL (dbo.EmpFace)
+                        uploadFinger.Parameters.AddWithValue("FaceLenght", lvFace.Items[r - 1].SubItems[6].Text);//col 5 in SQL (dbo.EmpFace)
+                        uploadFinger.ExecuteNonQuery();
+                    }
+                    cnn.Close();
+                }
+                else//have some
+                    MessageBox.Show("not at all!", "Error");
+            }
+            else
+                MessageBox.Show("There is no data to upload!", "Error");
+            return;
+        }
 
         //Delete a certain user's face template according to its id
         private void btnDelUserFace_Click(object sender, EventArgs e)
@@ -984,8 +1129,8 @@ namespace UserInfo
                 }
             }
         }
-
-
         #endregion
+
+        
     }
 }

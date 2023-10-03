@@ -88,6 +88,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.rtTimer = new System.Windows.Forms.Timer(this.components);
+            this.btnDownloadFace_SQL = new System.Windows.Forms.Button();
+            this.btnUploadFace_SQL = new System.Windows.Forms.Button();
             this.tab1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -287,6 +289,8 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.btnUploadFace_SQL);
+            this.tabPage5.Controls.Add(this.btnDownloadFace_SQL);
             this.tabPage5.Controls.Add(this.lvFace);
             this.tabPage5.Controls.Add(this.groupBox11);
             this.tabPage5.Controls.Add(this.btnDownLoadFace);
@@ -314,7 +318,7 @@
             this.lvFace.HideSelection = false;
             this.lvFace.Location = new System.Drawing.Point(8, 8);
             this.lvFace.Name = "lvFace";
-            this.lvFace.Size = new System.Drawing.Size(467, 270);
+            this.lvFace.Size = new System.Drawing.Size(467, 242);
             this.lvFace.TabIndex = 68;
             this.lvFace.UseCompatibleStateImageBehavior = false;
             this.lvFace.View = System.Windows.Forms.View.Details;
@@ -405,21 +409,21 @@
             // 
             // btnDownLoadFace
             // 
-            this.btnDownLoadFace.Location = new System.Drawing.Point(92, 287);
+            this.btnDownLoadFace.Location = new System.Drawing.Point(8, 256);
             this.btnDownLoadFace.Name = "btnDownLoadFace";
             this.btnDownLoadFace.Size = new System.Drawing.Size(142, 23);
             this.btnDownLoadFace.TabIndex = 70;
-            this.btnDownLoadFace.Text = "DownLoadFaceTemplates";
+            this.btnDownLoadFace.Text = "DownLoadFace (machine)";
             this.btnDownLoadFace.UseVisualStyleBackColor = true;
             this.btnDownLoadFace.Click += new System.EventHandler(this.btnDownLoadFace_Click);
             // 
             // btnUploadFace
             // 
-            this.btnUploadFace.Location = new System.Drawing.Point(260, 287);
+            this.btnUploadFace.Location = new System.Drawing.Point(8, 285);
             this.btnUploadFace.Name = "btnUploadFace";
             this.btnUploadFace.Size = new System.Drawing.Size(130, 23);
             this.btnUploadFace.TabIndex = 69;
-            this.btnUploadFace.Text = "UploadFaceTemplates";
+            this.btnUploadFace.Text = "UploadFace (machine)";
             this.btnUploadFace.UseVisualStyleBackColor = true;
             this.btnUploadFace.Click += new System.EventHandler(this.btnUploadFace_Click);
             // 
@@ -771,6 +775,26 @@
             this.rtTimer.Interval = 5000;
             this.rtTimer.Tick += new System.EventHandler(this.rtTimer_Tick);
             // 
+            // btnDownloadFace_SQL
+            // 
+            this.btnDownloadFace_SQL.Location = new System.Drawing.Point(333, 256);
+            this.btnDownloadFace_SQL.Name = "btnDownloadFace_SQL";
+            this.btnDownloadFace_SQL.Size = new System.Drawing.Size(142, 23);
+            this.btnDownloadFace_SQL.TabIndex = 72;
+            this.btnDownloadFace_SQL.Text = "DownLoadFace (SQL)";
+            this.btnDownloadFace_SQL.UseVisualStyleBackColor = true;
+            this.btnDownloadFace_SQL.Click += new System.EventHandler(this.btnDownloadFace_SQL_Click);
+            // 
+            // btnUploadFace_SQL
+            // 
+            this.btnUploadFace_SQL.Location = new System.Drawing.Point(345, 285);
+            this.btnUploadFace_SQL.Name = "btnUploadFace_SQL";
+            this.btnUploadFace_SQL.Size = new System.Drawing.Size(130, 23);
+            this.btnUploadFace_SQL.TabIndex = 73;
+            this.btnUploadFace_SQL.Text = "UploadFace (SQL)";
+            this.btnUploadFace_SQL.UseVisualStyleBackColor = true;
+            this.btnUploadFace_SQL.Click += new System.EventHandler(this.btnUploadFace_SQL_Click);
+            // 
             // UserInfoMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -878,6 +902,8 @@
         private System.Windows.Forms.Timer rtTimer;
         private System.Windows.Forms.Button addDemo;
         private System.Windows.Forms.Button uploadSQL;
+        private System.Windows.Forms.Button btnDownloadFace_SQL;
+        private System.Windows.Forms.Button btnUploadFace_SQL;
     }
 }
 
