@@ -179,7 +179,7 @@ namespace UserInfo
                 SqlConnection cnn;
                 connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
                 cnn = new SqlConnection(connetionString);
-                cnn.Open();
+                
 
                 
 
@@ -191,7 +191,8 @@ namespace UserInfo
                     }
                     else
                     {
-                        string selectquery = "select * from EmpFingerEco where FingerCode = '" + lvDownload.Items[r - 1].SubItems[0].Text + "'";
+                        cnn.Open();
+                        string selectquery = "select * from EmpFingerEco where EmployeeNumber = '" + lvDownload.Items[r - 1].SubItems[0].Text + "'";
                         SqlCommand cmd = new SqlCommand(selectquery, cnn);
                         SqlDataReader reader1;
                         reader1 = cmd.ExecuteReader();
@@ -206,17 +207,19 @@ namespace UserInfo
                         {
                             list.Add(true);
                         }
-                    }    
+                    }
+                    cnn.Close();
                 }
 
                 if (!list.Contains(true))//no finger
                 {
                     MessageBox.Show("All data no fingerprint!", "Error");
-                    cnn.Close();
                 }
                 else if (!list.Contains(false))//have finger
                 {
                     MessageBox.Show("All data have fingerprint!", "Error");
+
+                    cnn.Open();
 
                     for (int r = 1; r <= lvDownload.Items.Count; r++) // upload to sever SQL (1 by 1)
                     {
