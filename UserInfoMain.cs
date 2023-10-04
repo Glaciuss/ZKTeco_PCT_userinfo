@@ -1021,29 +1021,28 @@ namespace UserInfo
             lbRTShow.Items.Add("...Workcode:" + iWorkCode.ToString());//the difference between the event OnAttTransaction and OnAttTransactionEx
             lbRTShow.Items.Add("...Time:" + iYear.ToString() + "-" + iMonth.ToString() + "-" + iDay.ToString() + " " + iHour.ToString() + ":" + iMinute.ToString() + ":" + iSecond.ToString());
 
-            //update log here
-            MessageBox.Show("Login Success!", "Alert");
 
-            //begin upload
-            string connetionString;
-            SqlConnection cnn;
-            connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
-            cnn = new SqlConnection(connetionString);
-            cnn.Open();
+            rtTimer_Tick(null,new EventArgs());
+            ////begin upload
+            //string connetionString;
+            //SqlConnection cnn;
+            //connetionString = @"Data Source=192.168.88.141;Initial Catalog=CarService;User ID=sa;Password=sa0816812178";
+            //cnn = new SqlConnection(connetionString);
+            //cnn.Open();
 
-            String query = "INSERT INTO dbo.Log_ZKTeco (EmployeeNumber,EmployeeName,VerifyMethod,TimeStamp) ";
-            query += "VALUES (@EmployeeNumber,@EmployeeName, @VerifyMethod,@TimeStamp)";
-            SqlCommand uploadLog = new SqlCommand(query, cnn);
+            //String query = "INSERT INTO dbo.Log_ZKTeco (EmployeeNumber,EmployeeName,VerifyMethod,TimeStamp) ";
+            //query += "VALUES (@EmployeeNumber,@EmployeeName, @VerifyMethod,@TimeStamp)";
+            //SqlCommand uploadLog = new SqlCommand(query, cnn);
 
-            uploadLog.Parameters.AddWithValue("@EmployeeNumber", sEnrollNumber);//col 1 in SQL (dbo.Log_ZKTeco)
-            uploadLog.Parameters.AddWithValue("@VerifyMethod", iVerifyMethod.ToString());//col 3 in SQL (dbo.Log_ZKTeco)
-            uploadLog.Parameters.AddWithValue("@TimeStamp", iYear.ToString() + "-" 
-                + iMonth.ToString() + "-" + iDay.ToString() + " " + iHour.ToString() + ":" + iMinute.ToString() 
-                + ":" + iSecond.ToString());//col 4 in SQL (dbo.Log_ZKTeco)
+            //uploadLog.Parameters.AddWithValue("@EmployeeNumber", sEnrollNumber);//col 1 in SQL (dbo.Log_ZKTeco)
+            //uploadLog.Parameters.AddWithValue("@VerifyMethod", iVerifyMethod.ToString());//col 3 in SQL (dbo.Log_ZKTeco)
+            //uploadLog.Parameters.AddWithValue("@TimeStamp", iYear.ToString() + "-" 
+            //    + iMonth.ToString() + "-" + iDay.ToString() + " " + iHour.ToString() + ":" + iMinute.ToString() 
+            //    + ":" + iSecond.ToString());//col 4 in SQL (dbo.Log_ZKTeco)
 
-            uploadLog.ExecuteNonQuery();
+            //uploadLog.ExecuteNonQuery();
 
-            cnn.Close();
+            //cnn.Close();
         }
 
         //When you have enrolled your finger,this event will be triggered and return the quality of the fingerprint you have enrolled
@@ -1149,7 +1148,8 @@ namespace UserInfo
             {
                 while (axCZKEM1.GetRTLog(iMachineNumber))
                 {
-                    ;
+                    //update log here
+                    MessageBox.Show("RT_Tick!", "Alert");
                 }
             }
         }
