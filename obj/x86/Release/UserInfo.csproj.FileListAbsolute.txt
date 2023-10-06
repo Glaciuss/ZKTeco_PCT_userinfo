@@ -13,4 +13,5 @@ E:\testC\ZKTeco\UserInfo\obj\x86\Release\UserInfo.pdb
 E:\testC\ZKTeco\UserInfo\bin\x86\Release\DatabaseClassLibrary.dll
 E:\testC\ZKTeco\UserInfo\obj\x86\Release\UserInfo.csproj.CopyComplete
 E:\testC\ZKTeco\UserInfo\bin\x86\Release\UserInfo.exe.config
-E:\testC\ZKTeco\UserInfo\obj\x86\Release\UserInfo.csproj.AssemblyReference.cache
+E:\testC\ZKTeco\UserInfo\bin\x86\Release\AxInterop.zkemkeeper.dll
+E:\testC\ZKTeco\UserInfo\bin\x86\Release\DatabaseClassLibrary.pdb
