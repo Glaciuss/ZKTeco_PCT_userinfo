@@ -25,7 +25,6 @@ namespace UserInfo
 
         //Create Standalone SDK class dynamicly.
         public zkemkeeper.CZKEMClass axCZKEM1 = new zkemkeeper.CZKEMClass();
-        public Axzkemkeeper.AxCZKEM axCZKEM2 = new Axzkemkeeper.AxCZKEM();
 
         #region Communication
         private bool bIsConnected = false;//the boolean value identifies whether the device is connected
@@ -54,8 +53,7 @@ namespace UserInfo
             }
 
             axCZKEM1.PullMode = 1;
-            //bIsConnected = axCZKEM1.Connect_Net(txtIP.Text, Convert.ToInt32(txtPort.Text));
-            bIsConnected = axCZKEM2.Connect_Net(txtIP.Text, Convert.ToInt32(txtPort.Text));
+            bIsConnected = axCZKEM1.Connect_Net(txtIP.Text, Convert.ToInt32(txtPort.Text));
             if (bIsConnected == true)
             {
                 btnConnect.Text = "DisConnect";
@@ -226,7 +224,7 @@ namespace UserInfo
                 cmdIndex = new SqlCommand("select * from EmpIndex", cnn);
 
                 string selectquery = "select * from Employee ";
-                selectquery += "where EmployeeID = 66010007070001"; //for demo test
+                selectquery += "where EmpStatusID = 0"; //for select only active employee
                 string selectqueryIndex = "select * from EmpIndex";
 
                 SqlDataAdapter adpt = new SqlDataAdapter(selectquery, cnn);

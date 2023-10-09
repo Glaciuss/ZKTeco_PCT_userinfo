@@ -94,9 +94,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AxInterop.zkemkeeper">
-      <HintPath>..\RTEvents\bin\x86\Release\AxInterop.zkemkeeper.dll</HintPath>
-    </Reference>
     <Reference Include="DatabaseClassLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Sbuys\DatabaseClassLibrary.dll</HintPath>
